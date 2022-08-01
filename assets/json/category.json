@@ -1,0 +1,42 @@
+[
+    {
+        "title": "Clothes",
+        "icon": "assets/icons/general/home/clothes.png",
+        "json": [
+            "assets/json/shirt.json",
+            "assets/json/girl_wear.json"
+        ]
+    },
+    {
+        "title": "Shoes",
+        "icon": "assets/icons/general/home/shoes.png",
+        "json": "assets/json/shoes.json"
+    },
+    {
+        "title": "Bags",
+        "icon": "assets/icons/general/home/bags.png",
+        "json": "assets/json/bags.json"
+    },
+    {
+        "title": "Electronics",
+        "icon": "assets/icons/general/home/pc.png",
+        "json": "assets/json/electronic.json"
+    },
+    {
+        "title": "Watch",
+        "icon": "assets/icons/general/home/watch.png",
+        "json": "assets/json/watch.json"
+    },
+    {
+        "title": "Jewellery",
+        "icon": "assets/icons/general/home/diamond.png"
+    },
+    {
+        "title": "Kitchen",
+        "icon": "assets/icons/general/home/kitchen.png"
+    },
+    {
+        "title": "Toys",
+        "icon": "assets/icons/general/home/toys.png"
+    }
+]
