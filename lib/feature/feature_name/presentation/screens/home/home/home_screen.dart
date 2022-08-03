@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/product_cubit.dart';
+import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/product/product_cubit.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/home_app_bar.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/carousel_card.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/input_field.dart';
@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              InputField('Search', Icon(Icons.search_rounded),
+              InputField('Search', Icon(Icons.search_rounded),(v){},
                   Icon(Icons.menu_open_outlined)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

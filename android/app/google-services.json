@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "627267166039",
+    "project_id": "evira-ecommerce",
+    "storage_bucket": "evira-ecommerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627267166039:android:2354c122b65cbe70162812",
+        "android_client_info": {
+          "package_name": "com.example.evira_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627267166039-0bc097dqnktttp47dukf4uod5tqjnnpp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-6gHixpTm3UWO0YZbdUeE6L7HNk0PEQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627267166039-0bc097dqnktttp47dukf4uod5tqjnnpp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

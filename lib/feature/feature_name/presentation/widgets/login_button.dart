@@ -1,15 +1,20 @@
+import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/auth/auth_cubit.dart';
 import 'package:evira_shop/feature/feature_name/presentation/screens/home/home/home_screen.dart';
+import 'package:evira_shop/feature/feature_name/presentation/screens/home/main_home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginButton extends StatelessWidget {
   String title;
-  LoginButton(this.title);
+  Map<String, String> usercredentials;
+  BuildContext context;
+  LoginButton(this.title, this.usercredentials, this.context);
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamedAndRemoveUntil(
-            context, HomeScreen.routename, (route) => false);
+        BlocProvider.of<AuthCubit>(context)
+            .createUser(usercredentials, context);
       },
       child: Container(
         width: double.infinity,

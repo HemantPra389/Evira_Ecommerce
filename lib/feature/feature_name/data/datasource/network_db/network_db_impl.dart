@@ -5,6 +5,8 @@ import 'package:evira_shop/feature/feature_name/data/models/carousel_model.dart'
 import 'package:evira_shop/feature/feature_name/data/models/product_model.dart';
 import 'package:evira_shop/feature/feature_name/domain/entities/product_entity.dart';
 import 'package:evira_shop/feature/feature_name/domain/entities/carousel_entity.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -28,5 +30,23 @@ class NetworkDbImpl implements NetworkDb {
       carouselList = decodedData.map((e) => CarouselModel.fromJson(e)).toList();
     });
     return carouselList!;
+  }
+
+  @override
+  Future<void> createUser(
+      Map<String, String> usercredentials, BuildContext context) async {
+    try {
+      final authResult = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: usercredentials['email'].toString(),
+              password: usercredentials['password'].toString());
+    } on FirebaseException catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(error.message!),
+        backgroundColor: Theme.of(context).errorColor,
+      ));
+    } catch (error) {
+      print(error);
+    }
   }
 }
