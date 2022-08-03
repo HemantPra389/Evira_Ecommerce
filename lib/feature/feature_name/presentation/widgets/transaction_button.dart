@@ -7,7 +7,7 @@ class TransactionButton extends StatelessWidget {
   double titleSize;
   double middlepadding;
   double verticalpadding;
-  Widget suffixIcon;
+  Widget? suffixIcon;
   VoidCallback trasaction_fun;
 
   TransactionButton(
@@ -22,7 +22,7 @@ class TransactionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => trasaction_fun,
+      onTap: trasaction_fun,
       child: Container(
         width: mediaQuery,
         padding: EdgeInsets.symmetric(vertical: verticalpadding),
@@ -46,7 +46,7 @@ class TransactionButton extends StatelessWidget {
             SizedBox(
               width: middlepadding,
             ),
-            suffixIcon
+            suffixIcon!
           ],
         ),
       ),

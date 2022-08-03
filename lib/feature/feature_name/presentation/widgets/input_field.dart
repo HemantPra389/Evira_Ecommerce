@@ -3,12 +3,12 @@ import 'package:evira_shop/core/asset_constants.dart' as asset;
 
 class InputField extends StatefulWidget {
   final String title;
-  final Widget iconData;
+  final Widget? iconData;
   Widget? suffixIcon;
   bool obsecureText = false;
   ValueChanged<String>? fun;
-  InputField(this.title, this.iconData, this.fun,
-      [this.suffixIcon, this.obsecureText = false]);
+  InputField(this.title,  this.fun,
+      [this.iconData,this.suffixIcon, this.obsecureText = false]);
 
   @override
   State<InputField> createState() => _InputFieldState();
@@ -27,7 +27,15 @@ class _InputFieldState extends State<InputField> {
           fillColor: Colors.white,
           prefixIcon: IconTheme(
             data: IconThemeData(color: Colors.grey, size: 30),
-            child: widget.iconData,
+            child: widget.iconData != null
+              ? IconTheme(
+                  data: IconThemeData(color: Colors.grey, size: 30),
+                  child: widget.iconData!,
+                )
+              : SizedBox(
+                  height: 0,
+                  width: 0,
+                ),
           ),
           hintText: widget.title,
           prefixIconColor: Colors.grey,

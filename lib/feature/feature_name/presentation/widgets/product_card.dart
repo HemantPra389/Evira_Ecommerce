@@ -1,7 +1,9 @@
+import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/product/product_cubit.dart';
 import 'package:evira_shop/feature/feature_name/presentation/screens/home/home/product_detail_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductCard extends StatelessWidget {
   List<dynamic> image_url;
@@ -16,7 +18,10 @@ class ProductCard extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ProductDetailScreen(image_url,title,price)));
+                builder: (context) => BlocProvider(
+                      create: (context) => ProductCubit(),
+                      child: ProductDetailScreen(image_url, title, price),
+                    )));
       },
       child: Container(
         width: MediaQuery.of(context).size.width * .45,

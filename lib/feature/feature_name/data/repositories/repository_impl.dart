@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:evira_shop/feature/feature_name/data/datasource/network_db/network_db.dart';
 import 'package:evira_shop/feature/feature_name/domain/entities/carousel_entity.dart';
 import 'package:evira_shop/feature/feature_name/domain/entities/product_entity.dart';
@@ -18,7 +20,19 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<void> createUser(Map<String, String> usercredentials,BuildContext context) async {
-    return networkDb.createUser(usercredentials,context);
+  Future<void> createUser(
+      Map<String, String> usercredentials, BuildContext context) async {
+    return networkDb.createUser(usercredentials, context);
+  }
+
+  @override
+  Future<void> createUserProfile(Map<String, String> usercredentials,
+      BuildContext context, File image) async {
+    return networkDb.createUserProfile(usercredentials, context, image);
+  }
+
+  @override
+  Future<void> addtoCart(Map<String, String> cartProductData) {
+    return networkDb.addtoCart(cartProductData);
   }
 }

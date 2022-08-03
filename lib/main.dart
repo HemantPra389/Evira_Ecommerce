@@ -1,4 +1,5 @@
 import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/auth/auth_cubit.dart';
+import 'package:evira_shop/feature/feature_name/presentation/screens/auth/auth_screens/create_profile_screen.dart';
 import 'package:evira_shop/feature/feature_name/presentation/screens/home/cart/cart_screen.dart';
 import 'package:evira_shop/feature/feature_name/presentation/screens/home/main_home_screen.dart';
 import 'package:evira_shop/injection_container.dart';
@@ -25,7 +26,7 @@ void main() async {
 
 String isAuth() {
   if (FirebaseAuth.instance.currentUser != null) {
-    return HomeScreen.routename;
+    return MainHomeScreen.routename;
   }
   return '/';
 }
@@ -35,13 +36,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: isAuth(),
       routes: {
         '/': (context) => MainSplashScreen(),
         AuthMainScreen.routename: (context) => AuthMainScreen(),
         SignUpScreen.routename: (context) => BlocProvider(
               create: (context) => AuthCubit(),
               child: SignUpScreen(),
+            ),
+        CreateProfileScreen.routename: (context) => BlocProvider(
+              create: (context) => AuthCubit(),
+              child: CreateProfileScreen(),
             ),
         HomeScreen.routename: (context) => BlocProvider(
               create: (context) => ProductCubit(),

@@ -23,7 +23,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   String category = "clothes";
   @override
   Widget build(BuildContext context) {
@@ -37,8 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              InputField('Search', Icon(Icons.search_rounded),(v){},
-                  Icon(Icons.menu_open_outlined)),
+              InputField(
+                'Search',
+                (v) {},
+                Icon(Icons.search_rounded),
+                Icon(Icons.menu_open_outlined),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

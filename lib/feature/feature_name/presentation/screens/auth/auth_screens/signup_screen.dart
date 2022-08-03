@@ -1,4 +1,5 @@
 import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/auth/auth_cubit.dart';
+import 'package:evira_shop/feature/feature_name/presentation/screens/auth/auth_screens/create_profile_screen.dart';
 import 'package:evira_shop/feature/feature_name/presentation/screens/home/main_home_screen.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/back_app_bar.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/input_field.dart';
@@ -31,7 +32,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         listener: (context, state) {
           if (state is AuthSuccess) {
             Navigator.pushNamedAndRemoveUntil(
-                context, MainHomeScreen.routename, (route) => false);
+                context, CreateProfileScreen.routename, (route) => false);
+            BlocProvider.of<AuthCubit>(context).emit(AuthInitial());
           }
         },
         builder: (context, state) {
