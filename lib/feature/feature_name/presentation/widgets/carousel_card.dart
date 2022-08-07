@@ -10,7 +10,7 @@ class CarouselCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 200,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
@@ -23,7 +23,7 @@ class CarouselCard extends StatelessWidget {
         children: [
           Container(
             width: 200,
-            padding: EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -44,6 +44,6 @@ class CarouselCard extends StatelessWidget {
         ],
       ),
     );
-    ;
+    
   }
 }

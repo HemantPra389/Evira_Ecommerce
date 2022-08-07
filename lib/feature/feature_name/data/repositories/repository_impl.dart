@@ -35,4 +35,14 @@ class RepositoryImpl implements Repository {
   Future<void> addtoCart(Map<String, String> cartProductData) {
     return networkDb.addtoCart(cartProductData);
   }
+
+  @override
+  Future<void> orderProduct() async {
+    return networkDb.orderProduct();
+  }
+
+  @override
+  Future<void> deleteCartItem(String id) async {
+    return await networkDb.deleteCartItem(id);
+  }
 }

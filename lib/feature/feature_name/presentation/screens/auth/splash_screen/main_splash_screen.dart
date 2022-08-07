@@ -8,7 +8,7 @@ class MainSplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: FutureBuilder(
-            future: Future.delayed(Duration(seconds: 2)),
+            future: Future.delayed(const Duration(seconds: 2)),
             builder: (context, snapshot) =>
                 snapshot.connectionState == ConnectionState.waiting
                     ? Center(
@@ -21,11 +21,11 @@ class MainSplashScreen extends StatelessWidget {
                                   width: 200,
                                 ),
                               ),
-                              CircularProgressIndicator(
+                              const CircularProgressIndicator(
                                 color: Colors.black87,
                                 strokeWidth: 7,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 50,
                               ),
                             ]),
@@ -37,17 +37,17 @@ class MainSplashScreen extends StatelessWidget {
                           Navigator.popAndPushNamed(
                               context, AuthMainScreen.routename);
                         },
-                        done: Text(
+                        done: const Text(
                           'Done',
                           style: TextStyle(
                               color: Colors.black54,
                               fontSize: 22,
                               fontFamily: 'Ubuntu'),
                         ),
-                        dotsDecorator: DotsDecorator(
+                        dotsDecorator: const DotsDecorator(
                             activeColor: Colors.black87,
-                            activeSize: Size(20, 35)),
-                        next: Icon(
+                            activeSize:  Size(20, 35)),
+                        next: const Icon(
                           Icons.arrow_forward_ios_outlined,
                           color: Colors.black54,
                           size: 30,
@@ -70,7 +70,7 @@ class MainSplashScreen extends StatelessWidget {
     return PageViewModel(
       titleWidget: Text(title,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontFamily: 'Ubuntu',
             fontSize: 40,
@@ -79,11 +79,11 @@ class MainSplashScreen extends StatelessWidget {
       image: Image.asset(
         image,
       ),
-      decoration: PageDecoration(
+      decoration: const PageDecoration(
           imageFlex: 2,
           bodyFlex: 1,
           bodyPadding: EdgeInsets.zero,
-          imagePadding: EdgeInsets.all(10)),
+          imagePadding:  EdgeInsets.all(10)),
     );
   }
 }

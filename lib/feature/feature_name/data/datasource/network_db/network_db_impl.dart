@@ -14,7 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class NetworkDbImpl implements NetworkDb {
-  late UserCredential authresult;
+  int itemnum = 0;
+  List<Map<String, dynamic>> newList = [];
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   @override
   Future<List<ProductEntity>> getProductData(String filename) async {
     List<ProductModel>? productList;
@@ -40,7 +42,7 @@ class NetworkDbImpl implements NetworkDb {
   Future<void> createUser(
       Map<String, String> usercredentials, BuildContext context) async {
     try {
-      authresult = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await _firebaseAuth.createUserWithEmailAndPassword(
           email: usercredentials['email'].toString(),
           password: usercredentials['password'].toString());
     } on FirebaseException catch (error) {
@@ -57,14 +59,14 @@ class NetworkDbImpl implements NetworkDb {
   Future<void> createUserProfile(Map<String, String> usercredentials,
       BuildContext context, File image) async {
     try {
-      final ref = await FirebaseStorage.instance
+      final ref = FirebaseStorage.instance
           .ref()
           .child('user-images')
-          .child(authresult.user!.uid + '.jpeg');
+          .child(_firebaseAuth.currentUser!.uid + '.jpeg');
       ref.putFile(image).whenComplete(() => null);
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(authresult.user!.uid)
+          .doc(_firebaseAuth.currentUser!.uid)
           .set({
         'fullname': usercredentials['fullname'],
         'nickname': usercredentials['nickname'],
@@ -85,12 +87,57 @@ class NetworkDbImpl implements NetworkDb {
   @override
   Future<void> addtoCart(Map<String, String> cartProductData) async {
     await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_firebaseAuth.currentUser!.uid)
         .collection('cart_orders')
-        .doc(authresult.user!.email)
-        .set({
+        .add({
       'title': cartProductData['title'],
       'price': cartProductData['price'],
-      'product_img_url': cartProductData['product_img_url']
+      'product_img_url': cartProductData['product_img_url'],
     });
+  }
+
+  @override
+  Future<void> orderProduct() async {
+    var data = FirebaseFirestore.instance
+        .collection('users')
+        .doc(_firebaseAuth.currentUser!.uid)
+        .collection('cart_orders')
+        .get();
+    data
+        .then((value) => value.docs.forEach((element) async {
+              await FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(_firebaseAuth.currentUser!.uid)
+                  .collection('orders')
+                  .add({
+                "title": element['title'],
+                "price": element['price'],
+                'product_img_url': element['product_img_url'],
+                'time': DateTime.now()
+              });
+            }))
+        .then((value) async {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_firebaseAuth.currentUser!.uid)
+          .collection('cart_orders')
+          .get()
+          .then((snapshot) {
+        for (DocumentSnapshot ds in snapshot.docs) {
+          ds.reference.delete();
+        }
+      });
+    });
+  }
+
+  @override
+  Future<void> deleteCartItem(String id) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_firebaseAuth.currentUser!.uid)
+        .collection('cart_orders')
+        .doc(id)
+        .delete();
   }
 }

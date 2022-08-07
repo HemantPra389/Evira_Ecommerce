@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:evira_shop/feature/feature_name/domain/entities/product_entity.dart';
 import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/product/product_cubit.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/back_app_bar.dart';
@@ -15,13 +13,13 @@ class ProductGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BackAppBar(title),
+      appBar: BackAppBar(context, title),
       body: FutureBuilder(
           future:
               BlocProvider.of<ProductCubit>(context).getProductData(jsonPath),
           builder: (context, AsyncSnapshot<List<ProductEntity>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(
                   color: Colors.black87,
                   strokeWidth: 7,
@@ -31,7 +29,7 @@ class ProductGrid extends StatelessWidget {
               return GridView.builder(
                   itemCount: snapshot.data!.length,
                   scrollDirection: Axis.vertical,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: .65,
                       crossAxisCount: 2,
                       crossAxisSpacing: 7),

@@ -16,7 +16,7 @@ class ProfileScreen extends StatelessWidget {
                   height: 120,
                   width: 120,
                   child: Stack(children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 60,
                       backgroundImage: NetworkImage(
                           "https://cdn.pixabay.com/photo/2021/04/25/14/30/man-6206540_1280.jpg"),
@@ -30,7 +30,7 @@ class ProfileScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Colors.black,
                               borderRadius: BorderRadius.circular(10)),
-                          child: Icon(
+                          child: const Icon(
                             Icons.edit,
                             color: Colors.white,
                           )),
@@ -44,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
                       'Andrew Ainsley',
                       style: asset.introStyles(24),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -53,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Expanded(
@@ -92,7 +92,7 @@ class ProfileScreen extends StatelessWidget {
     IconData leadingIcon,
   ) {
     return ListTile(
-      visualDensity: VisualDensity(vertical: -2),
+      visualDensity: const VisualDensity(vertical: -2),
       minLeadingWidth: 0,
       leading: Icon(
         leadingIcon,
@@ -103,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
         title,
         style: asset.introStyles(20),
       ),
-      trailing: Icon(
+      trailing: const Icon(
         Icons.arrow_forward_ios_rounded,
         color: Colors.black54,
       ),

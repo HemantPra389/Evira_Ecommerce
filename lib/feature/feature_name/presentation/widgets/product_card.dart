@@ -23,14 +23,14 @@ class ProductCard extends StatelessWidget {
                       child: ProductDetailScreen(image_url, title, price),
                     )));
       },
-      child: Container(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width * .45,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
                 height: 200,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -78,7 +78,7 @@ class ProductCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(Icons.star_half_outlined),
+                      const Icon(Icons.star_half_outlined),
                       Text(
                         ' 4.5  |   ',
                         style: asset.introStyles(16, color: Colors.grey),
@@ -86,7 +86,7 @@ class ProductCard extends StatelessWidget {
                       Container(
                         width: 60,
                         height: 20,
-                        padding: EdgeInsets.symmetric(horizontal: 4),
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
                         alignment: Alignment.center,
                         color: Colors.grey.shade300,
                         child: Text(

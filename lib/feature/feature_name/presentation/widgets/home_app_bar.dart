@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
 
@@ -6,7 +5,7 @@ PreferredSize MyAppBar(String title) {
   return PreferredSize(
       child: SafeArea(
         child: Container(
-          padding: EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: 10),
           child: AppBar(
             elevation: 0,
             primary: false,
@@ -14,11 +13,11 @@ PreferredSize MyAppBar(String title) {
             backgroundColor: Colors.transparent,
             title: Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundImage: NetworkImage(
                       "https://cdn.pixabay.com/photo/2021/04/25/14/30/man-6206540_1280.jpg"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(

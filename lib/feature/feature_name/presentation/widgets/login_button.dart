@@ -1,6 +1,4 @@
 import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/auth/auth_cubit.dart';
-import 'package:evira_shop/feature/feature_name/presentation/screens/home/home/home_screen.dart';
-import 'package:evira_shop/feature/feature_name/presentation/screens/home/main_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,13 +16,13 @@ class LoginButton extends StatelessWidget {
       },
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         alignment: Alignment.center,
         decoration: BoxDecoration(
             color: Colors.black87, borderRadius: BorderRadius.circular(35)),
         child: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.white, fontFamily: 'Ubuntu', fontSize: 24),
         ),
       ),

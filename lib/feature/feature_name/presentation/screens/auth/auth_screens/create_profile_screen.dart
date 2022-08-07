@@ -3,9 +3,6 @@ import 'dart:io';
 import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/auth/auth_cubit.dart';
 import 'package:evira_shop/feature/feature_name/presentation/screens/home/main_home_screen.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/back_app_bar.dart';
-import 'package:evira_shop/feature/feature_name/presentation/widgets/input_field.dart';
-import 'package:evira_shop/feature/feature_name/presentation/widgets/login_button.dart';
-import 'package:evira_shop/feature/feature_name/presentation/widgets/transaction_button.dart';
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +31,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BackAppBar('Fill Your Profile'),
+      appBar: BackAppBar(context, 'Fill Your Profile'),
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthSuccess) {
@@ -88,7 +85,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               decoration: BoxDecoration(
                                   color: Colors.black,
                                   borderRadius: BorderRadius.circular(10)),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.edit,
                                 color: Colors.white,
                               )),
@@ -116,7 +113,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                     color: Colors.black26),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         color: Colors.black, width: 1.5)),
                                 filled: true,
                                 border: OutlineInputBorder(
@@ -136,7 +133,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                     color: Colors.black26),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                         color: Colors.black, width: 1.5)),
                                 filled: true,
                                 border: OutlineInputBorder(
@@ -146,19 +143,42 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                           InkWell(
                             onTap: () async {
                               DateTime? newDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: dateTime,
-                                  firstDate: DateTime(2000),
-                                  lastDate: DateTime(2100));
-                              if (newDate == null) return;
-                              setState(() {
-                                dateTime = newDate;
-                                userProfileCredentials['date'] =
-                                    '${dateTime.day}/${dateTime.month}/${dateTime.year}';
+                                      context: context,
+                                      initialDate: dateTime,
+                                      builder: (context, child) {
+                                        return Theme(
+                                          data: ThemeData.light().copyWith(
+                                            colorScheme:
+                                                const ColorScheme.light(
+                                                    primary: Colors.black87),
+                                            buttonTheme: const ButtonThemeData(
+                                                textTheme:
+                                                    ButtonTextTheme.primary),
+                                          ),
+                                          child: child!,
+                                        );
+                                      },
+                                      firstDate: DateTime(2000),
+                                      lastDate: DateTime(2100))
+                                  .then((value) {
+                                if (value != null) {
+                                  setState(() {
+                                    dateTime = value;
+                                    userProfileCredentials['date'] =
+                                        '${dateTime.day}/${dateTime.month}/${dateTime.year}';
+                                  });
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                          content: Text(
+                                    "No Date selected",
+                                    style: asset.introStyles(18),
+                                  )));
+                                }
                               });
                             },
                             child: Container(
-                              padding: EdgeInsets.only(
+                              padding: const EdgeInsets.only(
                                   top: 20, right: 15, bottom: 20, left: 10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
@@ -172,7 +192,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                     style: asset.introStyles(18,
                                         color: Colors.black87),
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.cake,
                                     color: Colors.black26,
                                     size: 20,
@@ -189,7 +209,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               validator: (value) {},
                               decoration: InputDecoration(
                                   fillColor: Colors.white,
-                                  suffixIcon: IconTheme(
+                                  suffixIcon: const IconTheme(
                                     child: Icon(Icons.email),
                                     data: IconThemeData(
                                         color: Colors.black26, size: 20),
@@ -199,7 +219,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                       color: Colors.black26),
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           color: Colors.black, width: 1.5)),
                                   filled: true,
                                   border: OutlineInputBorder(
@@ -257,13 +277,13 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
         },
         child: Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 20,
           ),
-          margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
+          margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
           decoration: BoxDecoration(
               color: Colors.black87, borderRadius: BorderRadius.circular(35)),
-          child: Text(
+          child: const Text(
             'Continue',
             textAlign: TextAlign.center,
             style: TextStyle(

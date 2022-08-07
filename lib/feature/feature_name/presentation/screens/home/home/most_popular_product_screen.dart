@@ -3,7 +3,6 @@ import 'package:evira_shop/feature/feature_name/domain/entities/product_entity.d
 import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/product/product_cubit.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/back_app_bar.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/product_card.dart';
-import 'package:evira_shop/feature/feature_name/presentation/widgets/product_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,21 +20,21 @@ class _MostPopularProductScreenState extends State<MostPopularProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BackAppBar("Most Popular"),
+      appBar: BackAppBar(context, "Most Popular"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Container(
+        child: SizedBox(
           height: double.infinity,
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: 60,
                 child: FutureBuilder(
                   future: DefaultAssetBundle.of(context)
                       .loadString('assets/json/category.json'),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
+                      return const CircularProgressIndicator();
                     } else {
                       var categoryData = json.decode(snapshot.data.toString())
                           as List<dynamic>;
@@ -69,7 +68,7 @@ class _MostPopularProductScreenState extends State<MostPopularProductScreen> {
                   builder:
                       (context, AsyncSnapshot<List<ProductEntity>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(
                           color: Colors.black87,
                           strokeWidth: 7,
@@ -81,7 +80,7 @@ class _MostPopularProductScreenState extends State<MostPopularProductScreen> {
                             itemCount: snapshot.data!.length,
                             scrollDirection: Axis.vertical,
                             gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                                     childAspectRatio: .65,
                                     crossAxisCount: 2,
                                     crossAxisSpacing: 7),

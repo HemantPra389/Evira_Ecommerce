@@ -1,12 +1,12 @@
 import 'package:evira_shop/feature/feature_name/presentation/screens/home/order/completed_order.dart';
 import 'package:evira_shop/feature/feature_name/presentation/screens/home/order/ongoing_order.dart';
-import 'package:evira_shop/feature/feature_name/presentation/widgets/default_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
 
 class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -25,9 +25,9 @@ class OrderScreen extends StatelessWidget {
                         onPressed: () {},
                         icon: Image.asset(asset.logo1),
                       ),
-                      Text(
+                      const Text(
                         'My Order',
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: Colors.black,
                             fontFamily: 'Ubuntu',
                             fontSize: 23),
@@ -37,7 +37,7 @@ class OrderScreen extends StatelessWidget {
                   actions: [
                     IconButton(
                         onPressed: () {},
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.search,
                           color: Colors.black54,
                           size: 30,
@@ -49,12 +49,12 @@ class OrderScreen extends StatelessWidget {
                     unselectedLabelColor: Colors.grey,
                     labelStyle: asset.introStyles(20),
                     labelColor: Colors.black,
-                    tabs: [
-                      Tab(
+                    tabs:const [
+                       Tab(
                           icon: Text(
                         'Ongoing',
                       )),
-                      Tab(
+                       Tab(
                           icon: Text(
                         'Completed',
                       )),
@@ -65,7 +65,16 @@ class OrderScreen extends StatelessWidget {
             ),
             preferredSize: const Size.fromHeight(100)),
         body: TabBarView(
-          children: [OnGoingOrder(), CompletedOrder()],
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 18.0),
+              child: OnGoingOrder(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 18.0),
+              child: CompletedOrder(),
+            )
+          ],
         ),
       ),
     );

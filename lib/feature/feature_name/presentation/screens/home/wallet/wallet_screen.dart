@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/default_app_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
 
@@ -6,6 +8,9 @@ class WalletScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaquery = MediaQuery.of(context).size;
+    var firebasefirestore = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid);
     return Scaffold(
         appBar: DefaultAppBar('My E-Wallet'),
         body: Padding(
@@ -20,7 +25,7 @@ class WalletScreen extends StatelessWidget {
                       'Your Balance',
                       style: asset.introStyles(20, color: Colors.grey.shade600),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Text(
@@ -29,12 +34,12 @@ class WalletScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                Icon(
+                const Icon(
                   Icons.refresh_rounded,
                   color: Colors.black54,
                 )
               ]),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
@@ -53,56 +58,52 @@ class WalletScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Expanded(
-                child: ListView(
-                  children: [
-                    transaction_history_tile(
-                        'Suga Lether Shoes',
-                        'Dec 15, 2024 | 10:00 AM',
-                        '₹599',
-                        'Orders',
-                        "https://rukminim1.flixcart.com/image/753/904/kpmy8i80/shoe/q/w/p/9-ajwings-magnolia-white-original-imag3thhuz3edrjg.jpeg?q=50"),
-                    transaction_history_tile(
-                        'Top Up Wallet',
-                        'Dec 14, 2024 | 10:00 AM',
-                        '₹2000',
-                        'Top Up',
-                        "https://static.thenounproject.com/png/2464489-200.png"),
-                    transaction_history_tile(
-                        'Realme Buds',
-                        'Dec 11, 2024 | 10:00 AM',
-                        '₹1299',
-                        'Orders',
-                        "https://rukminim1.flixcart.com/image/416/416/krayqa80/headphone/x/9/r/rma2010-realme-original-imag54ey5mxggzcy.jpeg?q=70"),
-                    transaction_history_tile(
-                        'Boat HeadPhone',
-                        'Dec 5, 2024 | 10:00 AM',
-                        '₹3990',
-                        'Orders',
-                        "https://rukminim1.flixcart.com/image/416/416/kq9ta4w0/headphone/5/b/3/rockerz-650-boat-original-imag4bfgnqmjpbem.jpeg?q=70"),
-                    transaction_history_tile(
-                        'Top Up Wallet',
-                        'Dec 14, 2024 | 10:00 AM',
-                        '₹599',
-                        'Top Up',
-                        "https://static.thenounproject.com/png/2464489-200.png"),
-                    transaction_history_tile(
-                        'Track Bag',
-                        'Nov 15, 2024 | 10:00 AM',
-                        '₹899',
-                        'Orders',
-                        "https://rukminim1.flixcart.com/image/753/904/l111lzk0/backpack/s/i/d/unisex-water-proof-mountain-rucksackhiking-trekking-camping-bag-original-imagcztjcmrrshdf.jpeg?q=50"),
-                    transaction_history_tile(
-                        'Top Up Wallet',
-                        'Dec 14, 2024 | 10:00 AM',
-                        '₹16590',
-                        'Top Up',
-                        "https://static.thenounproject.com/png/2464489-200.png"),
-                  ],
-                ),
+                child: StreamBuilder(
+                    stream: firebasefirestore.collection('orders').snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.black87,
+                            strokeWidth: 7,
+                          ),
+                        );
+                      } else if (snapshot.hasData && snapshot.data!.size != 0) {
+                        return ListView(
+                          children: snapshot.data!.docs.map((document) {
+                            return Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: transaction_history_tile(
+                                    document['title'],
+                                    "Dec 11,2021 | 11:20 AM",
+                                    document['price'],
+                                    "Order",
+                                    document['product_img_url']));
+                          }).toList(),
+                        );
+                      } else {
+                        return Center(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(asset.no_transaction, width: 300),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  'No Transaction right now',
+                                  textAlign: TextAlign.center,
+                                  style: asset.introStyles(22,
+                                      color: Colors.black54),
+                                )
+                              ]),
+                        );
+                      }
+                    }),
               )
             ],
           ),
@@ -112,9 +113,10 @@ class WalletScreen extends StatelessWidget {
   ListTile transaction_history_tile(
       String title, String date, String rate, String typeOf, String image) {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: 6),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 6),
       title: Text(
         title,
+        maxLines: 2,
         style: asset.introStyles(20),
       ),
       subtitle: Text(
@@ -126,7 +128,7 @@ class WalletScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            rate,
+            "₹" + rate,
             style: asset.introStyles(22),
           ),
           Text(

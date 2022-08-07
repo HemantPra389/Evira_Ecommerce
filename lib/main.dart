@@ -48,17 +48,15 @@ class MyApp extends StatelessWidget {
               create: (context) => AuthCubit(),
               child: CreateProfileScreen(),
             ),
-        HomeScreen.routename: (context) => BlocProvider(
-              create: (context) => ProductCubit(),
-              child: HomeScreen(),
-            ),
+        HomeScreen.routename: (context) => HomeScreen(),
         CarouselList.routename: (context) => CarouselList(),
-        MostPopularProductScreen.routename: (context) => BlocProvider(
-              create: (context) => ProductCubit(),
-              child: MostPopularProductScreen(),
-            ),
+        MostPopularProductScreen.routename: (context) =>
+            MostPopularProductScreen(),
         CartScreen.routename: (context) => CartScreen(),
-        MainHomeScreen.routename: (context) => MainHomeScreen()
+        MainHomeScreen.routename: (context) => BlocProvider(
+              create: (context) => ProductCubit(),
+              child: MainHomeScreen(),
+            )
       },
     );
   }

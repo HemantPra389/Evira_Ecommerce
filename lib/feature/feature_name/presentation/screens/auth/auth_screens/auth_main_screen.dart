@@ -1,6 +1,4 @@
 import 'package:evira_shop/feature/feature_name/presentation/screens/auth/auth_screens/signup_screen.dart';
-import 'package:evira_shop/feature/feature_name/presentation/screens/home/main_home_screen.dart';
-import 'package:evira_shop/feature/feature_name/presentation/widgets/login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
 
@@ -24,7 +22,7 @@ class AuthMainScreen extends StatelessWidget {
               style: asset.introStyles(50),
             ),
             Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.only(top: 20),
               height: 160,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,12 +44,12 @@ class AuthMainScreen extends StatelessWidget {
               },
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: Colors.black87,
                     borderRadius: BorderRadius.circular(35)),
-                child: Text(
+                child: const Text(
                   'Sign in with password',
                   style: TextStyle(
                       color: Colors.white, fontFamily: 'Ubuntu', fontSize: 24),
@@ -76,7 +74,7 @@ class AuthMainScreen extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             )
           ],
@@ -93,7 +91,7 @@ class AuthMainScreen extends StatelessWidget {
           iconpath,
           width: 35,
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         Text(

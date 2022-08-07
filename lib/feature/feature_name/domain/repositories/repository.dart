@@ -11,5 +11,7 @@ abstract class Repository {
       Map<String, String> usercredentials, BuildContext context);
   Future<void> createUserProfile(
       Map<String, String> usercredentials, BuildContext context, File image);
-  Future<void> addtoCart(Map<String,String> cartProductData);
+  Future<void> addtoCart(Map<String, String> cartProductData);
+  Future<void> deleteCartItem(String id);
+  Future<void> orderProduct();
 }

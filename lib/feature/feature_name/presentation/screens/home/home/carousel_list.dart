@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:evira_shop/feature/feature_name/domain/usecases/getCarouselData_usecase.dart';
 import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/product/product_cubit.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/back_app_bar.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/carousel_card.dart';
@@ -12,28 +9,28 @@ class CarouselList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BackAppBar("Special Offers"),
+      appBar: BackAppBar(context,"Special Offers"),
       body: FutureBuilder(
         future: BlocProvider.of<ProductCubit>(context).getCarouselData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-                child: CircularProgressIndicator(
+            return const Center(
+                child:  CircularProgressIndicator(
               color: Colors.black87,
               strokeWidth: 7,
             ));
           } else {
             return ListView.builder(
               itemBuilder: (context, index) => Container(
-                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
                         color: Colors.grey.shade300,
                         spreadRadius: 1,
                         blurRadius: 1,
-                        offset: Offset(1, 1.1))
+                        offset: const Offset(1, 1.1))
                   ],
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),

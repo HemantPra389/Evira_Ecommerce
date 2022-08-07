@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-PreferredSize BackAppBar(String title, ) {
+PreferredSize BackAppBar(
+  BuildContext context,String title,
+) {
   return PreferredSize(
       child: SafeArea(
         child: Container(
@@ -14,8 +15,11 @@ PreferredSize BackAppBar(String title, ) {
             title: Row(
               children: [
                 IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_back_ios, color: Colors.black)),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon:
+                        const Icon(Icons.arrow_back_ios, color: Colors.black)),
                 Text(
                   title,
                   style: const TextStyle(

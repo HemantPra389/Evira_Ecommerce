@@ -4,14 +4,21 @@ import 'package:evira_shop/core/asset_constants.dart' as asset;
 
 class OrderCard extends StatelessWidget {
   String status;
-  OrderCard(this.status);
+  String title;
+  String image_url;
+  String price;
+  OrderCard(
+      {required this.status,
+      required this.title,
+      required this.price,
+      required this.image_url});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 160,
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      padding: EdgeInsets.only(right: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.only(right: 10, bottom: 7, top: 7),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
@@ -27,12 +34,12 @@ class OrderCard extends StatelessWidget {
           Container(
             width: 120,
             height: 145,
-            margin: EdgeInsets.symmetric(horizontal: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
                     image: NetworkImage(
-                  "https://rukminim1.flixcart.com/image/416/416/krayqa80/headphone/x/9/r/rma2010-realme-original-imag54ey5mxggzcy.jpeg?q=70",
+                  image_url,
                 ))),
           ),
           Expanded(
@@ -43,14 +50,17 @@ class OrderCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Realme Buds Q2',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: asset.introStyles(24),
+                    SizedBox(
+                      width: 150,
+                      child: Text(
+                        title,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: asset.introStyles(20),
+                      ),
                     ),
                     status == 'In Delivery'
-                        ? Icon(
+                        ? const Icon(
                             Icons.delete,
                             color: Colors.black54,
                           )
@@ -59,7 +69,7 @@ class OrderCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Icon(Icons.circle),
+                    const Icon(Icons.circle),
                     Text(
                       '   Color',
                       style: asset.introStyles(16, color: Colors.black54),
@@ -69,7 +79,7 @@ class OrderCard extends StatelessWidget {
                 Container(
                   width: 70,
                   height: 20,
-                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       color: Colors.grey.shade300,
@@ -83,8 +93,8 @@ class OrderCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '₹3,999',
-                      style: asset.introStyles(24),
+                      '₹' + price,
+                      style: asset.introStyles(22),
                     ),
                     TransactionButton(
                         mediaQuery: 120,
@@ -95,7 +105,7 @@ class OrderCard extends StatelessWidget {
                         middlepadding: 2,
                         verticalpadding: 5,
                         suffixIcon: status == 'In Delivery'
-                            ? Icon(
+                            ? const Icon(
                                 Icons.track_changes_outlined,
                                 color: Colors.white,
                               )
@@ -109,6 +119,6 @@ class OrderCard extends StatelessWidget {
         ],
       ),
     );
-    ;
+    
   }
 }

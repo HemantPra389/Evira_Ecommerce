@@ -1,8 +1,6 @@
 import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/auth/auth_cubit.dart';
 import 'package:evira_shop/feature/feature_name/presentation/screens/auth/auth_screens/create_profile_screen.dart';
-import 'package:evira_shop/feature/feature_name/presentation/screens/home/main_home_screen.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/back_app_bar.dart';
-import 'package:evira_shop/feature/feature_name/presentation/widgets/input_field.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
@@ -27,7 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: BackAppBar(''),
+      appBar: BackAppBar(context,''),
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthSuccess) {
@@ -78,7 +76,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                     decoration: InputDecoration(
                         fillColor: Colors.white,
-                        prefixIcon: IconTheme(
+                        prefixIcon: const IconTheme(
                           data: IconThemeData(color: Colors.grey, size: 25),
                           child: Icon(Icons.email),
                         ),
@@ -88,7 +86,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide:
-                                BorderSide(color: Colors.black, width: 1.5)),
+                                const BorderSide(color: Colors.black, width: 1.5)),
                         filled: true,
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
@@ -104,9 +102,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       validator: (value) {},
                       decoration: InputDecoration(
                           fillColor: Colors.white,
-                          prefixIcon: IconTheme(
+                          prefixIcon: const IconTheme(
                             data: IconThemeData(color: Colors.grey, size: 25),
-                            child: Icon(Icons.person_add_alt),
+                            child:  Icon(Icons.person_add_alt),
                           ),
                           hintText: "Username",
                           prefixIconColor: Colors.grey,
@@ -115,7 +113,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
                               borderSide:
-                                  BorderSide(color: Colors.black, width: 1.5)),
+                                  const BorderSide(color: Colors.black, width: 1.5)),
                           filled: true,
                           border: OutlineInputBorder(
                               borderSide: BorderSide.none,
@@ -130,20 +128,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     validator: (value) {},
                     decoration: InputDecoration(
                         fillColor: Colors.white,
-                        prefixIcon: IconTheme(
+                        prefixIcon: const IconTheme(
                             data: IconThemeData(color: Colors.grey, size: 25),
-                            child: Icon(Icons.lock_outline)),
+                            child:  Icon(Icons.lock_outline)),
                         hintText: "Password",
-                        suffixIcon: IconTheme(
-                          child: Icon(Icons.remove_red_eye),
-                          data: IconThemeData(color: Colors.grey),
+                        suffixIcon: const IconTheme(
+                          child:  Icon(Icons.remove_red_eye),
+                          data:  IconThemeData(color: Colors.grey),
                         ),
                         prefixIconColor: Colors.grey,
                         hintStyle: asset.introStyles(18, color: Colors.black45),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide:
-                                BorderSide(color: Colors.black, width: 1.5)),
+                                const BorderSide(color: Colors.black, width: 1.5)),
                         filled: true,
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
@@ -155,7 +153,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Container(
                         height: 30,
                         width: 30,
-                        child: Icon(
+                        child: const Icon(
                           Icons.check_outlined,
                           color: Colors.white,
                           size: 27,
@@ -164,7 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             color: Colors.black87,
                             borderRadius: BorderRadius.circular(10)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(

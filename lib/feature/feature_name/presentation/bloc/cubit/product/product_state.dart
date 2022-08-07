@@ -8,3 +8,7 @@ abstract class ProductState extends Equatable {
 }
 
 class ProductInitial extends ProductState {}
+
+class AddingCartState extends ProductState{}
+
+class AddedCartSuccess extends ProductState{}

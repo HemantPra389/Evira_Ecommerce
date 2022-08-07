@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:evira_shop/feature/feature_name/presentation/bloc/cubit/product/product_cubit.dart';
-import 'package:evira_shop/feature/feature_name/presentation/widgets/back_app_bar.dart';
 import 'package:evira_shop/feature/feature_name/presentation/widgets/transaction_button.dart';
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
@@ -14,6 +13,7 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size mediaQuery = MediaQuery.of(context).size;
+    String cartbtntitle = "Add to Cart";
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -39,7 +39,7 @@ class ProductDetailScreen extends StatelessWidget {
                 Positioned(
                   child: CircleAvatar(
                     backgroundColor: Colors.black.withOpacity(.4),
-                    child: Icon(
+                    child:const Icon(
                       Icons.arrow_back_ios_new_rounded,
                       color: Colors.white,
                     ),
@@ -191,22 +191,32 @@ class ProductDetailScreen extends StatelessWidget {
                 )
               ],
             ),
-            TransactionButton(
-              mediaQuery: mediaQuery.width * .65,
-              title: 'Add to Cart',
-              suffixIcon: Image.asset(
-                asset.cart,
-                color: Colors.white,
-              ),
-              trasaction_fun: () {
-                final Map<String, String> cartProductData = {
-                  "title": title,
-                  'price': price,
-                  'product_img_url': image_url[0].toString()
-                };
-                BlocProvider.of<ProductCubit>(context)
-                    .addToCart(cartProductData)
-                    .then((value) => print('clicked'));
+            BlocConsumer<ProductCubit, ProductState>(
+              listener: (context, state) {
+                if (state is AddingCartState) {
+                  cartbtntitle = 'Adding';
+                } else if (state is AddedCartSuccess) {
+                  cartbtntitle = 'Added';
+                }
+              },
+              builder: (context, state) {
+                return TransactionButton(
+                  mediaQuery: mediaQuery.width * .65,
+                  title: cartbtntitle,
+                  suffixIcon: Image.asset(
+                    asset.cart,
+                    color: Colors.white,
+                  ),
+                  trasaction_fun: () {
+                    final Map<String, String> cartProductData = {
+                      "title": title,
+                      'price': price,
+                      'product_img_url': image_url[0].toString()
+                    };
+                    BlocProvider.of<ProductCubit>(context)
+                        .addToCart(cartProductData);
+                  },
+                );
               },
             ),
           ],

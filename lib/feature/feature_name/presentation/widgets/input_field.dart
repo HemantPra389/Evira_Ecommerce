@@ -26,13 +26,13 @@ class _InputFieldState extends State<InputField> {
       decoration: InputDecoration(
           fillColor: Colors.white,
           prefixIcon: IconTheme(
-            data: IconThemeData(color: Colors.grey, size: 30),
+            data: const IconThemeData(color: Colors.grey, size: 30),
             child: widget.iconData != null
               ? IconTheme(
-                  data: IconThemeData(color: Colors.grey, size: 30),
+                  data: const IconThemeData(color: Colors.grey, size: 30),
                   child: widget.iconData!,
                 )
-              : SizedBox(
+              : const SizedBox(
                   height: 0,
                   width: 0,
                 ),
@@ -41,17 +41,17 @@ class _InputFieldState extends State<InputField> {
           prefixIconColor: Colors.grey,
           suffixIcon: widget.suffixIcon != null
               ? IconTheme(
-                  data: IconThemeData(color: Colors.grey, size: 30),
+                  data: const IconThemeData(color: Colors.grey, size: 30),
                   child: widget.suffixIcon!,
                 )
-              : SizedBox(
+              : const SizedBox(
                   height: 0,
                   width: 0,
                 ),
           hintStyle: asset.introStyles(18, color: Colors.black45),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide(color: Colors.black, width: 1.5)),
+              borderSide: const BorderSide(color: Colors.black, width: 1.5)),
           filled: true,
           border: OutlineInputBorder(
               borderSide: BorderSide.none,

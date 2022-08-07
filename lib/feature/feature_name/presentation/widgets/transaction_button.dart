@@ -30,7 +30,7 @@ class TransactionButton extends StatelessWidget {
             color: Colors.black87,
             borderRadius: BorderRadius.circular(30),
             boxShadow: [
-              BoxShadow(
+              const BoxShadow(
                   color: Colors.grey,
                   spreadRadius: 1,
                   blurRadius: 1,
