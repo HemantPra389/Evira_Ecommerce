@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.4.1"
+  animate_do:
+    dependency: "direct main"
+    description:
+      name: animate_do
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   args:
     dependency: transitive
     description:
@@ -451,12 +458,12 @@ packages:
     source: hosted
     version: "0.8.5+3"
   image_picker_android:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: image_picker_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.5+1"
+    version: "0.8.4+13"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -521,7 +528,7 @@ packages:
     source: hosted
     version: "6.3.0"
   kiwi:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: kiwi
       url: "https://pub.dartlang.org"

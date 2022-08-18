@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  animate_do: ^2.1.0
   bloc: ^8.0.3
   build_runner: ^2.1.11
   carousel_slider: ^4.1.1
@@ -45,9 +46,9 @@ dependencies:
   introduction_screen: ^3.0.2
   json_annotation: ^4.5.0
   json_serializable: ^6.2.0
-  kiwi: ^4.0.2
 
 dependency_overrides:
+  image_picker_android: 0.8.4+13
   firebase_messaging_platform_interface: 3.1.6
   firebase_crashlytics_platform_interface: 3.1.13
   cloud_firestore_platform_interface: 5.4.13
