@@ -1,6 +1,8 @@
 
 
-import 'package:evira_shop/feature/product/domain/product_domain/repositories/product_repository.dart';
+
+
+import 'package:evira_shop/feature/product/domain/repositories/product_repository.dart';
 
 class AddtoCartUseCase {
   final ProductRepository repository;

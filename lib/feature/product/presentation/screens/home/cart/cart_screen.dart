@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
-import 'package:evira_shop/feature/product/presentation/bloc/cubit/product/product_cubit.dart';
+import 'package:evira_shop/feature/product/presentation/bloc/cubit/product_cubit.dart';
 import 'package:evira_shop/feature/product/presentation/widgets/cart_product_card.dart';
 import 'package:evira_shop/feature/product/presentation/widgets/default_app_bar.dart';
 import 'package:evira_shop/feature/product/presentation/widgets/transaction_button.dart';

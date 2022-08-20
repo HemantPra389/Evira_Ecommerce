@@ -19,3 +19,12 @@ class AuthFailure extends AuthState {
 class AuthLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {}
+
+//Phone auth state
+class AuthCodeSentState extends AuthState{}
+
+class AuthCodeVerifiedState extends AuthState{}
+
+class AuthLoggedInState extends AuthState{}
+
+class AuthLoggedOutState extends AuthState{}

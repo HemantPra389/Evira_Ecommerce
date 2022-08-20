@@ -1,4 +1,4 @@
-import 'package:evira_shop/feature/product/presentation/bloc/cubit/product/product_cubit.dart';
+import 'package:evira_shop/feature/product/presentation/bloc/cubit/product_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:evira_shop/feature/product/presentation/bloc/cubit/product/product_cubit.dart';
+import 'package:evira_shop/feature/product/presentation/bloc/cubit/product_cubit.dart';
 import 'package:evira_shop/feature/product/presentation/widgets/carousel_card.dart';
 import 'package:evira_shop/feature/product/presentation/widgets/home_app_bar.dart';
 import 'package:evira_shop/feature/product/presentation/widgets/input_field.dart';

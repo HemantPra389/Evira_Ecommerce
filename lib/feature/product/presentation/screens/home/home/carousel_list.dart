@@ -1,4 +1,4 @@
-import 'package:evira_shop/feature/product/presentation/bloc/cubit/product/product_cubit.dart';
+import 'package:evira_shop/feature/product/presentation/bloc/cubit/product_cubit.dart';
 import 'package:evira_shop/feature/product/presentation/widgets/back_app_bar.dart';
 import 'package:evira_shop/feature/product/presentation/widgets/carousel_card.dart';
 import 'package:flutter/material.dart';

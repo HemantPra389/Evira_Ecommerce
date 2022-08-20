@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:evira_shop/feature/product/domain/product_domain/entities/product_entity.dart';
-import 'package:evira_shop/feature/product/presentation/bloc/cubit/product/product_cubit.dart';
+import 'package:evira_shop/feature/product/domain/entities/product_entity.dart';
+import 'package:evira_shop/feature/product/presentation/bloc/cubit/product_cubit.dart';
 import 'package:evira_shop/feature/product/presentation/widgets/back_app_bar.dart';
 import 'package:evira_shop/feature/product/presentation/widgets/product_card.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +87,8 @@ class _MostPopularProductScreenState extends State<MostPopularProductScreen> {
                             itemBuilder: (context, index) => ProductCard(
                                 title: snapshot.data![index].title,
                                 price: snapshot.data![index].price,
-                                image_url: snapshot.data![index].url)),
+                                image_url: snapshot.data![index].url,
+                                category: snapshot.data![index].category,)),
                       );
                     }
                   }),

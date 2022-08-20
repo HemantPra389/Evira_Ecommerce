@@ -1,6 +1,9 @@
+import 'package:evira_shop/feature/auth/presentation/bloc/cubit/auth_cubit.dart';
+import 'package:evira_shop/feature/auth/presentation/screens/auth_screens/phone_auth_screen.dart';
 import 'package:evira_shop/feature/auth/presentation/screens/auth_screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'login_screen.dart';
 
@@ -31,21 +34,31 @@ class AuthMainScreen extends StatelessWidget {
                 children: [
                   login_button('Continue with facebook', asset.facebook_logo),
                   login_button('Continue with Google', asset.google_logo),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.phone,
-                        size: 32,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Continue with Number",
-                        style: asset.introStyles(20),
-                      )
-                    ],
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => BlocProvider(
+                          create: (context) => AuthCubit(),
+                          child: PhoneAuthScreen(),
+                        ),
+                      ));
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.phone,
+                          size: 32,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "Continue with Number",
+                          style: asset.introStyles(20),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),

@@ -1,4 +1,4 @@
-import 'package:evira_shop/feature/product/domain/product_domain/entities/carousel_entity.dart';
+import 'package:evira_shop/feature/product/domain/entities/carousel_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'carousel_model.g.dart';

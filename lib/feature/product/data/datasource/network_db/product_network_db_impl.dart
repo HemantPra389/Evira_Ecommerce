@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evira_shop/feature/auth/domain/entities/user_credentail_entity.dart';
-import 'package:evira_shop/feature/product/data/product_data/models/carousel_model.dart';
-import 'package:evira_shop/feature/product/data/product_data/models/product_model.dart';
-import 'package:evira_shop/feature/product/domain/product_domain/entities/carousel_entity.dart';
-import 'package:evira_shop/feature/product/domain/product_domain/entities/product_entity.dart';
+import 'package:evira_shop/feature/product/data/models/carousel_model.dart';
+import 'package:evira_shop/feature/product/data/models/product_model.dart';
+import 'package:evira_shop/feature/product/domain/entities/carousel_entity.dart';
+import 'package:evira_shop/feature/product/domain/entities/product_entity.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -42,24 +42,6 @@ class ProductNetworkDbImpl implements ProductNetworkDb {
   }
 
   @override
-  Future<void> createUser(
-      UserCredentialEntity userCredentialEntity, BuildContext context) async {
-    
-  }
-
-  @override
-  Future<void> loginUser(UserCredentialEntity userCredentialEntity, BuildContext context) async{
-    
-  }
-  
-
-  @override
-  Future<void> createUserProfile(Map<String, String> usercredentials,
-      BuildContext context, File image) async {
-    
-  }
-
-  @override
   Future<void> addtoCart(Map<String, String> cartProductData) async {
     await FirebaseFirestore.instance
         .collection('users')
@@ -70,6 +52,20 @@ class ProductNetworkDbImpl implements ProductNetworkDb {
       'price': cartProductData['price'],
       'product_img_url': cartProductData['product_img_url'],
     });
+
+    //Helps once to upload all json product to firebase
+    
+    // await FirebaseFirestore.instance.collection('products').add({
+    //   'id':FirebaseFirestore.instance.collection('products').doc().path,
+    //   'title': cartProductData['title'],
+    //   'price': cartProductData['price'],
+    //   'product_img_url': cartProductData['product_img_url'],
+    //   'category': cartProductData['category'],
+    //   'quantity': 200,
+    //   'sale': true,
+    //   'featured': true,
+    //   'total_orders':0
+    // });
   }
 
   @override
@@ -115,6 +111,4 @@ class ProductNetworkDbImpl implements ProductNetworkDb {
         .doc(id)
         .delete();
   }
-
-  
 }

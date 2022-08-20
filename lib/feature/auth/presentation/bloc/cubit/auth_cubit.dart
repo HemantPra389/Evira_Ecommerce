@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:evira_shop/feature/auth/domain/entities/user_credentail_entity.dart';
+import 'package:evira_shop/feature/auth/domain/usecases/auth_sendOTP_usecase.dart';
+import 'package:evira_shop/feature/auth/domain/usecases/auth_verifyOTP_usecase.dart';
 import 'package:evira_shop/feature/auth/domain/usecases/createUser_profile_usercase.dart';
 import 'package:evira_shop/feature/auth/domain/usecases/create_user_usecase.dart';
+import 'package:evira_shop/feature/auth/domain/usecases/forgot_password_usecase.dart';
 import 'package:evira_shop/feature/auth/domain/usecases/login_user_usecase.dart';
 import 'package:evira_shop/injection_container.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +49,43 @@ class AuthCubit extends Cubit<AuthState> {
     var authstate = await locator
         .call<LoginUserUseCase>()
         .loginuserusecase(userCredentialEntity, context);
+    if (authstate.toString() == "Success") {
+      emit(AuthSuccess());
+    } else {
+      emit(AuthFailure(error: authstate.toString()));
+    }
+  }
+
+  Future<void> authsendOTP(String phoneNumber) async {
+    emit(AuthLoading());
+    var authstate = await locator
+        .call<AuthSendOTPUseCase>()
+        .authSendOTPUseCase(phoneNumber);
+    if (authstate.toString() == "Success") {
+      emit(AuthSuccess());
+    } else if (authstate.toString() == "AuthCodeSent") {
+      emit(AuthCodeSentState());
+    } else {
+      emit(AuthFailure(error: authstate.toString()));
+    }
+  }
+
+  Future<void> authverifyOTP(int otp) async {
+    emit(AuthLoading());
+    var authstate =
+        await locator.call<AuthVerifyOTPUseCase>().authVerifyOTPUsecase(otp);
+    if (authstate.toString() == "Success") {
+      emit(AuthSuccess());
+    } else {
+      emit(AuthFailure(error: authstate.toString()));
+    }
+  }
+
+  Future<void> resetPassword(String email) async {
+    emit(AuthLoading());
+    var authstate = await locator
+        .call<ForgotPasswordUseCase>()
+        .forgotpasswordusecase(email);
     if (authstate.toString() == "Success") {
       emit(AuthSuccess());
     } else {

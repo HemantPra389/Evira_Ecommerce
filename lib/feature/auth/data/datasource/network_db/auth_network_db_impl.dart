@@ -11,6 +11,7 @@ import 'auth_network_db.dart';
 
 class AuthNetworkDBImpl implements AuthNetworkDB {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  String? _verificationId;
   @override
   Future<String> createUser(
       UserCredentialEntity userCredentialEntity, BuildContext context) async {
@@ -65,6 +66,61 @@ class AuthNetworkDBImpl implements AuthNetworkDB {
       return error.message.toString();
     } catch (e) {
       return e.toString();
+    }
+  }
+
+  //Phone auth only works when we have google play console developer account
+  @override
+  Future<String> authsendOTP(String phoneNumber) async {
+    String returnStatus = "";
+    print(phoneNumber);
+    await _firebaseAuth
+        .verifyPhoneNumber(
+      phoneNumber: phoneNumber.toString(),
+      codeSent: (verificationId, forceResendingToken) {
+        _verificationId = verificationId;
+        returnStatus = "AuthCodeSent";
+      },
+      verificationCompleted: (phoneAuthCredential) async {
+        returnStatus = await signInWithPhone(phoneAuthCredential);
+      },
+      verificationFailed: (error) {
+        returnStatus = error.message.toString();
+      },
+      codeAutoRetrievalTimeout: (verificationId) {
+        _verificationId = verificationId;
+      },
+    )
+        .then((value) {
+      return returnStatus;
+    });
+    return returnStatus;
+  }
+
+  @override
+  Future<String> authverifyOTP(int otp) async {
+    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
+        verificationId: _verificationId!, smsCode: otp.toString());
+    return await signInWithPhone(phoneAuthCredential);
+  }
+
+  Future<String> signInWithPhone(
+      PhoneAuthCredential phoneAuthCredential) async {
+    try {
+      await _firebaseAuth.signInWithCredential(phoneAuthCredential);
+      return "Success";
+    } on FirebaseAuthException catch (error) {
+      return error.message.toString();
+    }
+  }
+
+  @override
+  Future<String> forgotpassword(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      return "Success";
+    } on FirebaseAuthException catch (error) {
+      return error.message.toString();
     }
   }
 }

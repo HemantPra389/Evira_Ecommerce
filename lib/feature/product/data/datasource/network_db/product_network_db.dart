@@ -1,6 +1,6 @@
 
-import 'package:evira_shop/feature/product/domain/product_domain/entities/carousel_entity.dart';
-import 'package:evira_shop/feature/product/domain/product_domain/entities/product_entity.dart';
+import 'package:evira_shop/feature/product/domain/entities/carousel_entity.dart';
+import 'package:evira_shop/feature/product/domain/entities/product_entity.dart';
 
 abstract class ProductNetworkDb{
   Future<List<ProductEntity>> getProductData(String filename);

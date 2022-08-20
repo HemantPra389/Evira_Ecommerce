@@ -90,7 +90,7 @@ class WalletScreen extends StatelessWidget {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(asset.no_transaction, width: 300),
+                                Image.asset(asset.empty_cart_error, width: 300),
                                 const SizedBox(
                                   height: 20,
                                 ),

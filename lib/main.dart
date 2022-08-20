@@ -11,7 +11,7 @@ import 'feature/auth/presentation/screens/auth_screens/create_profile_screen.dar
 import 'feature/auth/presentation/screens/auth_screens/login_screen.dart';
 import 'feature/auth/presentation/screens/auth_screens/signup_screen.dart';
 import 'feature/auth/presentation/screens/splash_screen/main_splash_screen.dart';
-import 'feature/product/presentation/bloc/cubit/product/product_cubit.dart';
+import 'feature/product/presentation/bloc/cubit/product_cubit.dart';
 import 'feature/product/presentation/screens/home/cart/cart_screen.dart';
 import 'feature/product/presentation/screens/home/home/carousel_list.dart';
 import 'feature/product/presentation/screens/home/home/home_screen.dart';
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: isAuth(),
       routes: {
         '/': (context) => MainSplashScreen(),
         AuthMainScreen.routename: (context) => AuthMainScreen(),

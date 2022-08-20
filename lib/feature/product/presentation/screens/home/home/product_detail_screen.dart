@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:evira_shop/feature/product/presentation/bloc/cubit/product/product_cubit.dart';
+import 'package:evira_shop/feature/product/presentation/bloc/cubit/product_cubit.dart';
 import 'package:evira_shop/feature/product/presentation/widgets/transaction_button.dart';
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
@@ -9,7 +9,8 @@ class ProductDetailScreen extends StatelessWidget {
   List<dynamic> image_url;
   String title;
   String price;
-  ProductDetailScreen(this.image_url, this.title, this.price);
+  String category;
+  ProductDetailScreen(this.image_url, this.title, this.price, this.category);
   @override
   Widget build(BuildContext context) {
     Size mediaQuery = MediaQuery.of(context).size;
@@ -211,7 +212,8 @@ class ProductDetailScreen extends StatelessWidget {
                     final Map<String, String> cartProductData = {
                       "title": title,
                       'price': price,
-                      'product_img_url': image_url[0].toString()
+                      'product_img_url': image_url[0].toString(),
+                      'category': category
                     };
                     BlocProvider.of<ProductCubit>(context)
                         .addToCart(cartProductData);

@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:evira_shop/feature/product/domain/product_domain/entities/carousel_entity.dart';
-import 'package:evira_shop/feature/product/domain/product_domain/entities/product_entity.dart';
-import 'package:evira_shop/feature/product/domain/product_domain/usecases/addto_cart_usecase.dart';
-import 'package:evira_shop/feature/product/domain/product_domain/usecases/delete_cart_item.dart';
-import 'package:evira_shop/feature/product/domain/product_domain/usecases/getCarouselData_usecase.dart';
-import 'package:evira_shop/feature/product/domain/product_domain/usecases/getProductData_usecase.dart';
-import 'package:evira_shop/feature/product/domain/product_domain/usecases/order_product_usecase.dart';
+import 'package:evira_shop/feature/product/domain/entities/carousel_entity.dart';
+import 'package:evira_shop/feature/product/domain/entities/product_entity.dart';
+import 'package:evira_shop/feature/product/domain/usecases/addto_cart_usecase.dart';
+import 'package:evira_shop/feature/product/domain/usecases/delete_cart_item.dart';
+import 'package:evira_shop/feature/product/domain/usecases/getCarouselData_usecase.dart';
+import 'package:evira_shop/feature/product/domain/usecases/getProductData_usecase.dart';
+import 'package:evira_shop/feature/product/domain/usecases/order_product_usecase.dart';
 import 'package:evira_shop/injection_container.dart';
 part 'product_state.dart';
 

@@ -8,6 +8,7 @@ const splash_login = "assets/images/illustrations/splash_screen1.png";
 const splash_store = "assets/images/illustrations/splash_screen2.png";
 const splash_drop = "assets/images/illustrations/splash_screen3.png";
 const splash_check = "assets/images/illustrations/splash_screen4.png";
+const otp = "assets/images/illustrations/otp.png";
 const apple_logo = "assets/icons/general/social/apple.png";
 const facebook_logo = "assets/icons/general/social/facebook.png";
 const paypal = "assets/icons/general/social/paypal.png";
@@ -51,7 +52,7 @@ Container category_chip(String title, String activeChiptitle) {
           style: introStyles(16),
         ),
         backgroundColor: Colors.white,
-        side:const BorderSide(
+        side: const BorderSide(
           width: 1.5,
         ),
       ),
@@ -64,7 +65,7 @@ Container category_chip(String title, String activeChiptitle) {
           style: introStyles(16, color: Colors.white),
         ),
         backgroundColor: Colors.black,
-        side:const BorderSide(
+        side: const BorderSide(
           width: 1.5,
         ),
       ),

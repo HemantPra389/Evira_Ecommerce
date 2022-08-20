@@ -1,8 +1,10 @@
 import 'package:evira_shop/feature/auth/domain/entities/user_credentail_entity.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
 import 'package:evira_shop/feature/auth/presentation/bloc/cubit/auth_cubit.dart';
+import 'package:evira_shop/feature/auth/presentation/screens/auth_screens/forgot_password_screen.dart';
 import 'package:evira_shop/feature/auth/presentation/widgets/back_app_bar.dart';
 import 'package:evira_shop/feature/auth/presentation/widgets/login_button.dart';
+import 'package:evira_shop/feature/product/presentation/screens/home/main_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,14 +27,14 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
         if (state is AuthSuccess) {
           Navigator.pushNamedAndRemoveUntil(
-              context, CreateProfileScreen.routename, (route) => false);
+              context, MainHomeScreen.routename, (route) => false);
           BlocProvider.of<AuthCubit>(context).emit(AuthInitial());
         }
         if (state is AuthFailure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.error),
-              backgroundColor: Theme.of(context).errorColor,
-            ));
+            content: Text(state.error),
+            backgroundColor: Theme.of(context).errorColor,
+          ));
         }
       }, builder: (context, state) {
         if (state is AuthLoading) {
@@ -105,9 +107,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   title: "Sign In",
                   userCredentialEntity: userCredentialEntity,
                 ),
-                Text(
-                  'Forgot the password?',
-                  style: asset.introStyles(20),
+                InkWell(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                      create: (context) => AuthCubit(),
+                      child: ForgotPasswordScreen(),
+                    ),
+                  )),
+                  child: Text(
+                    'Forgot the password?',
+                    style: asset.introStyles(20),
+                  ),
                 ),
                 Text(
                   'or continue with',

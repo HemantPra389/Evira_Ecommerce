@@ -1,4 +1,4 @@
-import 'package:evira_shop/feature/product/presentation/bloc/cubit/product/product_cubit.dart';
+import 'package:evira_shop/feature/product/presentation/bloc/cubit/product_cubit.dart';
 import 'package:evira_shop/feature/product/presentation/screens/home/home/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:evira_shop/core/asset_constants.dart' as asset;
@@ -8,8 +8,9 @@ class ProductCard extends StatelessWidget {
   List<dynamic> image_url;
   String title;
   String price;
+  String category;
   ProductCard(
-      {required this.title, required this.price, required this.image_url});
+      {required this.title, required this.price, required this.image_url,required this.category});
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -19,7 +20,8 @@ class ProductCard extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => BlocProvider(
                       create: (context) => ProductCubit(),
-                      child: ProductDetailScreen(image_url, title, price),
+                      child: ProductDetailScreen(
+                          image_url, title, price, category),
                     )));
       },
       child: SizedBox(

@@ -1,3 +1,7 @@
+import 'package:evira_shop/feature/auth/domain/usecases/auth_sendOTP_usecase.dart';
+import 'package:evira_shop/feature/auth/domain/usecases/auth_verifyOTP_usecase.dart';
+import 'package:evira_shop/feature/auth/domain/usecases/forgot_password_usecase.dart';
+import 'package:evira_shop/feature/product/domain/usecases/getProductData_usecase.dart';
 import 'package:get_it/get_it.dart';
 
 import 'feature/auth/data/datasource/network_db/auth_network_db.dart';
@@ -7,15 +11,15 @@ import 'feature/auth/domain/repositories/auth_repository.dart';
 import 'feature/auth/domain/usecases/createUser_profile_usercase.dart';
 import 'feature/auth/domain/usecases/create_user_usecase.dart';
 import 'feature/auth/domain/usecases/login_user_usecase.dart';
-import 'feature/product/data/product_data/datasource/network_db/product_network_db.dart';
-import 'feature/product/data/product_data/datasource/network_db/product_network_db_impl.dart';
-import 'feature/product/data/product_data/repositories/repository_impl.dart';
-import 'feature/product/domain/product_domain/repositories/product_repository.dart';
-import 'feature/product/domain/product_domain/usecases/addto_cart_usecase.dart';
-import 'feature/product/domain/product_domain/usecases/delete_cart_item.dart';
-import 'feature/product/domain/product_domain/usecases/getCarouselData_usecase.dart';
-import 'feature/product/domain/product_domain/usecases/getProductData_usecase.dart';
-import 'feature/product/domain/product_domain/usecases/order_product_usecase.dart';
+import 'feature/product/data/datasource/network_db/product_network_db.dart';
+import 'feature/product/data/datasource/network_db/product_network_db_impl.dart';
+import 'feature/product/data/repositories/repository_impl.dart';
+import 'feature/product/domain/repositories/product_repository.dart';
+import 'feature/product/domain/usecases/addto_cart_usecase.dart';
+import 'feature/product/domain/usecases/delete_cart_item.dart';
+import 'feature/product/domain/usecases/getCarouselData_usecase.dart';
+import 'feature/product/domain/usecases/order_product_usecase.dart';
+
 
 GetIt locator = GetIt.instance;
 
@@ -29,6 +33,12 @@ Future<void> setup() async {
       () => CreateUserProfileUseCase(repository: locator()));
   locator.registerLazySingleton<LoginUserUseCase>(
       () => LoginUserUseCase(repository: locator()));
+  locator.registerLazySingleton<AuthSendOTPUseCase>(
+      () => AuthSendOTPUseCase(authRepository: locator()));
+  locator.registerLazySingleton<AuthVerifyOTPUseCase>(
+      () => AuthVerifyOTPUseCase(authRepository: locator()));
+  locator.registerLazySingleton<ForgotPasswordUseCase>(
+      () => ForgotPasswordUseCase(authRepository: locator()));
 
   //usecase-product
   locator.registerLazySingleton<GetProductDataUseCase>(
