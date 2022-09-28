@@ -1,16 +1,34 @@
-# evira_shop
 
-A new Flutter project.
+# Evira Ecommerce
 
-## Getting Started
+A Ecommerce based Flutter Project
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Features
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Clean Architecture for separation of concern
+- Authentication enabled
+- User-friendly interface
+- Firebase for back-end
+- Bloc Statemanagement
+
+
+
+## Optimizations
+
+- Bloc Statemanagement for seperating the Logic concern.
+- Maximum of Bug Fixes
+- Clean Architecture for easy maintainance of App
+
+
+
+
+## Screenshots
+
+![App Screenshot](https://github.com/HemantPra389/Evira_Ecommerce/blob/main/Pink%20and%20Green%20New%20Product%20Promotion%20Beauty%20Business%20Facebook%20Cover.png?raw=true)
+
+
+## Authors
+
+- [@HemantPra389](https://github.com/HemantPra389)
