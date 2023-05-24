@@ -1,0 +1,113 @@
+{
+  "project_info": {
+    "project_number": "627267166039",
+    "project_id": "evira-ecommerce",
+    "storage_bucket": "evira-ecommerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627267166039:android:f9d550347d9433f7162812",
+        "android_client_info": {
+          "package_name": "com.example.evira_admin_panel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627267166039-koekrt1pjtik5bdkn2nsn9fq40jj55jo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.evira_admin_panel",
+            "certificate_hash": "5baef9aa29848114c2f2fe255e8343fd6bf2c1e3"
+          }
+        },
+        {
+          "client_id": "627267166039-0bc097dqnktttp47dukf4uod5tqjnnpp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-6gHixpTm3UWO0YZbdUeE6L7HNk0PEQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627267166039-0bc097dqnktttp47dukf4uod5tqjnnpp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627267166039:android:3698f874647c2890162812",
+        "android_client_info": {
+          "package_name": "com.example.evira_ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627267166039-0bc097dqnktttp47dukf4uod5tqjnnpp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-6gHixpTm3UWO0YZbdUeE6L7HNk0PEQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627267166039-0bc097dqnktttp47dukf4uod5tqjnnpp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627267166039:android:2354c122b65cbe70162812",
+        "android_client_info": {
+          "package_name": "com.example.evira_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627267166039-ik0se7sq32lmv5t6rvt2be3aojva4t4r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.evira_shop",
+            "certificate_hash": "5baef9aa29848114c2f2fe255e8343fd6bf2c1e3"
+          }
+        },
+        {
+          "client_id": "627267166039-0bc097dqnktttp47dukf4uod5tqjnnpp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-6gHixpTm3UWO0YZbdUeE6L7HNk0PEQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627267166039-0bc097dqnktttp47dukf4uod5tqjnnpp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

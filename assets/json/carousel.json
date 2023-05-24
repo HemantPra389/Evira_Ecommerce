@@ -1,0 +1,37 @@
+[
+    {
+        "type": "carousel",
+        "discount": "30%",
+        "heading": "Today's Special",
+        "subtitle": "Get Discount for every order, only valid for today",
+        "image_url": "https://rukminim1.flixcart.com/image/753/904/km6mxe80/top/n/y/d/xs-st01-silkova-original-imagf5fmh6gdecba.jpeg?q=50"
+    },
+    {
+        "type": "carousel",
+        "discount": "25%",
+        "heading": "Summers Special",
+        "subtitle": "Get Discount for every order, only valid for this summer",
+        "image_url": "https://rukminim1.flixcart.com/image/753/904/kc0u7bk0/shirt/k/a/a/m-pk19sh09g-surhi-original-imaft8vgvhmhbhsy.jpeg?q=50"
+    },
+    {
+        "type": "carousel",
+        "discount": "40%",
+        "heading": "For Premium members",
+        "subtitle": "Free delivery with maximum discount on each order",
+        "image_url": "https://rukminim1.flixcart.com/image/753/904/krs40i80/shirt/p/v/g/m-sh-chi-19-u-turn-original-imag5hqt8pwyx7wz.jpeg?q=50"
+    },
+    {
+        "type": "carousel",
+        "discount": "20%",
+        "heading": "New Arrivals",
+        "subtitle": "One for today, for any purchase",
+        "image_url": "https://rukminim1.flixcart.com/image/753/904/l09w8sw0/top/8/h/7/s-84-fab-star-original-imagc3eg4zfuk4q8.jpeg?q=50"
+    },
+    {
+        "type": "carousel",
+        "discount": "30%",
+        "heading": "Black Friday",
+        "subtitle": "Left with few orders,",
+        "image_url": "https://rukminim1.flixcart.com/image/746/895/klo27bk0/top/c/l/p/m-147tkr2785a-selvia-original-imagyq82gwvysrqy.jpeg?q=50"
+    }
+]
