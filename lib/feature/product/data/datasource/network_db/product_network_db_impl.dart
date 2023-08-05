@@ -42,29 +42,34 @@ class ProductNetworkDbImpl implements ProductNetworkDb {
 
   @override
   Future<void> addtoCart(Map<String, String> cartProductData) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(_firebaseAuth.currentUser!.uid)
-        .collection('cart_orders')
-        .add({
-      'title': cartProductData['title'],
-      'price': cartProductData['price'],
-      'product_img_url': cartProductData['product_img_url'],
-    });
+    final String productId = cartProductData['id']!;
+    final String userId = _firebaseAuth.currentUser!.uid;
 
-    //Helps once to upload all json product to firebase
-    
-    // await FirebaseFirestore.instance.collection('products').add({
-    //   'id':FirebaseFirestore.instance.collection('products').doc().path,
-    //   'title': cartProductData['title'],
-    //   'price': cartProductData['price'],
-    //   'product_img_url': cartProductData['product_img_url'],
-    //   'category': cartProductData['category'],
-    //   'quantity': 200,
-    //   'sale': true,
-    //   'featured': true,
-    //   'total_orders':0
-    // });
+    final cartRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('cart_orders');
+
+    final existingProductSnapshot =
+        await cartRef.where('id', isEqualTo: productId).get();
+
+    if (existingProductSnapshot.docs.isNotEmpty) {
+      // Product already exists in the cart, increase quantity
+      final existingProduct = existingProductSnapshot.docs.first;
+      int currentQuantity = existingProduct['quantity'] ?? 0;
+      await existingProduct.reference.update({'quantity': currentQuantity + 1});
+    } else {
+      // Product doesn't exist in the cart, add it
+      await cartRef.add({
+        'id': cartProductData['id'],
+        'title': cartProductData['title'],
+        'imageUrl': cartProductData['imageUrl'],
+        'quantity': 1,
+        'rating': cartProductData['rating'],
+        'sold': cartProductData['sold'],
+        'price': cartProductData['price'],
+      });
+    }
   }
 
   @override
@@ -81,9 +86,14 @@ class ProductNetworkDbImpl implements ProductNetworkDb {
                   .doc(_firebaseAuth.currentUser!.uid)
                   .collection('orders')
                   .add({
-                "title": element['title'],
-                "price": element['price'],
-                'product_img_url': element['product_img_url'],
+                'id': element['id'],
+                'title': element['title'],
+                'status': "ongoing",
+                'imageUrl': element['imageUrl'],
+                'quantity': element['quantity'],
+                'rating': element['rating'],
+                'sold': element['sold'],
+                'price': element['price'],
                 'time': DateTime.now()
               });
             }))
@@ -103,11 +113,18 @@ class ProductNetworkDbImpl implements ProductNetworkDb {
 
   @override
   Future<void> deleteCartItem(String id) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(_firebaseAuth.currentUser!.uid)
-        .collection('cart_orders')
-        .doc(id)
-        .delete();
+    var userId = FirebaseAuth.instance.currentUser?.uid;
+
+    if (userId != null) {
+      var data = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('cart_orders')
+          .where('id', isEqualTo: id)
+          .get();
+      for (var doc in data.docs) {
+        await doc.reference.delete();
+      }
+    }
   }
 }

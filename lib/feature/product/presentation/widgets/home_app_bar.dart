@@ -1,59 +1,43 @@
+import '../screens/home/home/fav_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:evira_ecommerce/core/asset_constants.dart' as asset;
+import '../../../../core/asset_constants.dart' as asset;
 
-PreferredSize MyAppBar(String title) {
+PreferredSize MyAppBar(String title, BuildContext context) {
   return PreferredSize(
+      preferredSize: const Size.fromHeight(55),
       child: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.only(top: 10),
-          child: AppBar(
-            elevation: 0,
-            primary: false,
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.transparent,
-            title: Row(
-              children: [
-                const CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "https://cdn.pixabay.com/photo/2021/04/25/14/30/man-6206540_1280.jpg"),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Good Morning',
-                      style: asset.introStyles(20, color: Colors.black54),
-                    ),
-                    Text(
-                      'Andrew Ainsley',
-                      style: asset.introStyles(20),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            actions: [
+        child: AppBar(
+          elevation: 1,
+          primary: false,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.white,
+          titleSpacing: 10,
+          title: Row(
+            children: [
               IconButton(
                 onPressed: () {},
-                icon: Image.asset(
-                  asset.notification_bell,
-                  width: 25,
-                ),
+                icon: Image.asset(asset.logo1),
               ),
-              IconButton(
-                onPressed: () {},
-                icon: Image.asset(
-                  asset.heart,
-                  width: 25,
-                  color: Colors.black,
-                ),
-              ),
+              Text(
+                "Home",
+                style: const TextStyle(
+                    color: asset.buttoncolour,
+                    fontFamily: 'Ubuntu',
+                    fontSize: 20),
+              )
             ],
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => FavScreen(),
+                ));
+              },
+              icon: Image.asset(asset.heart,
+                  width: 25, color: asset.buttoncolour),
+            ),
+          ],
         ),
-      ),
-      preferredSize: const Size.fromHeight(60));
+      ));
 }

@@ -29,9 +29,7 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
   Future<void> orderProduct() async {
-    await locator
-        .call<OrderProductUseCase>()
-        .orderProductUsecase();
+    await locator.call<OrderProductUseCase>().orderProductUsecase();
   }
 
   Future<void> deleteCartProduct(String id) async {

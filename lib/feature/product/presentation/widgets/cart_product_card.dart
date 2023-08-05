@@ -1,207 +1,302 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../domain/entities/cart_product_entity.dart';
+import '../screens/home/home/product_detail_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:evira_ecommerce/core/asset_constants.dart' as asset;
+import '../../../../core/asset_constants.dart' as asset;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
 import '../bloc/cubit/product_cubit.dart';
 import 'delete_modal_bottom_sheet.dart';
 
-class CartProductCard extends StatelessWidget {
-  int productQuantity;
-  String product_id;
-  String cartImageUrl;
-  String title;
-  bool is_delete = true;
-  String price;
-  CartProductCard(
-    this.is_delete, {
-    required this.productQuantity,
-    required this.product_id,
-    required this.cartImageUrl,
-    required this.title,
-    required this.price,
-  });
+class CartProductCard extends StatefulWidget {
+  final String id;
+  final String title;
+  final String price;
+  final String imageUrl;
+  final String rating;
+  final String sold;
+  final int quantity;
+  final bool isCart;
+  final bool isShowfav;
+
+  const CartProductCard(
+      {super.key,
+      required this.id,
+      required this.sold,
+      this.isCart = false,
+      required this.rating,
+      required this.price,
+      required this.title,
+      this.quantity = 0,
+      this.isShowfav = true,
+      required this.imageUrl});
+
+  @override
+  State<CartProductCard> createState() => _CartProductCardState();
+}
+
+class _CartProductCardState extends State<CartProductCard> {
+  Future<void> deleteProduct() async {
+    var userId = FirebaseAuth.instance.currentUser?.uid;
+
+    if (userId != null) {
+      var data = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('cart_orders')
+          .where('id', isEqualTo: widget.id)
+          .get();
+      for (var doc in data.docs) {
+        await doc.reference.delete().whenComplete(() {});
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 160,
-      padding: const EdgeInsets.only(right: 20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade300,
+    final mediaQuery = MediaQuery.of(context).size;
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => ProductCubit(),
+            child: ProductDetailScreen(id: widget.id),
+          ),
+        ));
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: double.maxFinite,
+        margin: EdgeInsets.symmetric(
+            horizontal: mediaQuery.width * .04,
+            vertical: mediaQuery.height * .005),
+        padding: EdgeInsets.symmetric(
+            horizontal: mediaQuery.width * .02,
+            vertical: mediaQuery.height * .01),
+        height:
+            widget.isShowfav ? mediaQuery.height * .2 : mediaQuery.height * .15,
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+              color: Colors.blueGrey.shade100,
               spreadRadius: 1,
               blurRadius: 2,
-            )
-          ],
-          color: Colors.white),
-      child: Row(
-        children: [
-          Container(
-            width: 120,
-            height: 145,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                    image: NetworkImage(
-                  cartImageUrl,
-                ))),
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 160,
-                      child: Text(
-                        title,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: asset.introStyles(22),
-                      ),
+              offset: Offset(1, 1))
+        ], color: Colors.white, borderRadius: BorderRadius.circular(6)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              height: mediaQuery.height * .12,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      height: double.maxFinite,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          image: DecorationImage(
+                              image: NetworkImage(widget.imageUrl),
+                              fit: BoxFit.cover)),
                     ),
-                    if (is_delete)
-                      BlocProvider(
-                        create: (context) => ProductCubit(),
-                        child: InkWell(
-                          onTap: () {
-                            showModalBottomSheet<void>(
-                              backgroundColor: Colors.transparent,
-                              context: context,
-                              builder: (_) {
-                                return BlocProvider(
-                                  create: (context) => ProductCubit(),
-                                  child: Container(
-                                    height: 300,
-                                    decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(30),
-                                            topRight: Radius.circular(30))),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20, horizontal: 10),
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Remove From Cart',
-                                            style: asset.introStyles(30),
-                                          ),
-                                          DeleteModalBottomSheet(
-                                              title: title,
-                                              price: price,
-                                              img_url: cartImageUrl),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              delete_decision("Cancel", () {
-                                                Navigator.of(context).pop();
-                                              }, Colors.black12,
-                                                  Colors.black54),
-                                              delete_decision("Yes, Remove",
-                                                  () {
-                                                BlocProvider.of<ProductCubit>(
-                                                        context)
-                                                    .deleteCartProduct(
-                                                        product_id)
-                                                    .then((value) =>
-                                                        Navigator.pop(context));
-                                              }, Colors.black87.withOpacity(.8),
-                                                  Colors.white),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          child: const Icon(
-                            Icons.delete,
-                            color: Colors.black54,
-                            size: 24,
-                          ),
+                  ),
+                  SizedBox(
+                    width: mediaQuery.width * .05,
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: mediaQuery.width * .5,
+                              child: Text(
+                                widget.title,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      )
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.circle),
-                    Text(
-                      '   Color',
-                      style: asset.introStyles(16, color: Colors.black54),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "₹" + price,
-                      style: asset.introStyles(24),
-                    ),
-                    Container(
-                        width: is_delete ? 90 : 30,
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                        decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Row(
+                        Row(
+                          children: [
+                            RatingBar.builder(
+                              itemSize: 16,
+                              initialRating: double.parse(widget.rating) <= 1
+                                  ? 1
+                                  : double.parse(widget.rating),
+                              minRating: 0,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemPadding: EdgeInsets.only(right: 4),
+                              itemBuilder: (context, _) => Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              onRatingUpdate: (rating) {
+                                print(rating);
+                              },
+                            ),
+                            Text(
+                              '${widget.rating} Rated',
+                              style: asset.introStyles(14),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: mediaQuery.height * .005,
+                        ),
+                        widget.quantity == 0
+                            ? Text('${int.parse(widget.sold) + 110} Sold')
+                            : Text('Quantity | ${widget.quantity}'),
+                        Spacer(),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            if (is_delete) const Icon(Icons.remove),
-                            Text(
-                              productQuantity.toString(),
-                              style: asset.introStyles(20),
+                            SizedBox(
+                              width: mediaQuery.width * .2,
+                              child: Text(
+                                "₹${asset.numberFormat(double.parse(widget.price))}",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
                             ),
-                            if (is_delete) const Icon(Icons.add)
                           ],
-                        ))
-                  ],
-                )
-              ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          )
-        ],
-      ),
-    );
-  }
-
-  InkWell delete_decision(
-      String title, VoidCallback fun, Color color, Color textColor) {
-    return InkWell(
-      onTap: fun,
-      child: Container(
-        width: 180,
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(35),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(.2),
-                  offset: const Offset(1, 1),
-                  spreadRadius: 2,
-                  blurRadius: 2)
-            ]),
-        child: Text(
-          title,
-          style:
-              TextStyle(color: textColor, fontFamily: 'Ubuntu', fontSize: 18),
+            if (widget.isShowfav)
+              Divider(
+                thickness: 1,
+                color: Colors.blueGrey.shade100,
+              ),
+            if (widget.isShowfav)
+              Container(
+                alignment: Alignment.center,
+                height: mediaQuery.height * .04,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (widget.isCart)
+                      GestureDetector(
+                        onTap: () {
+                          BlocProvider.of<ProductCubit>(context)
+                              .deleteCartProduct(widget.id);
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.delete,
+                              color: Colors.blueGrey,
+                              size: 16,
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              "Remove from cart",
+                              style:
+                                  asset.introStyles(16, color: Colors.blueGrey),
+                            ),
+                          ],
+                        ),
+                      ),
+                    if (widget.isCart)
+                      SizedBox(
+                        height: mediaQuery.height * .02,
+                        child: VerticalDivider(
+                          color: Colors.blueGrey,
+                          width: 8,
+                          thickness: 1,
+                        ),
+                      ),
+                    GestureDetector(
+                        onTap: () {
+                          if (Hive.box<CartProductEntity>(asset.hivefavbox)
+                              .containsKey(widget.id)) {
+                            Hive.box<CartProductEntity>(asset.hivefavbox)
+                                .delete(widget.id);
+                          } else {
+                            Hive.box<CartProductEntity>(asset.hivefavbox).put(
+                                widget.id,
+                                CartProductEntity(
+                                    id: widget.id,
+                                    title: widget.title,
+                                    price: double.parse(widget.price),
+                                    imageUrl: widget.imageUrl,
+                                    rating: widget.rating,
+                                    sold: widget.sold));
+                          }
+                        },
+                        child: ValueListenableBuilder(
+                          valueListenable:
+                              Hive.box<CartProductEntity>(asset.hivefavbox)
+                                  .listenable(),
+                          builder: (context, favbox, _) {
+                            if (!favbox.containsKey(widget.id)) {
+                              return Row(
+                                children: [
+                                  Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.blueGrey,
+                                    size: 16,
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    "Add to Favourites",
+                                    style: asset.introStyles(16,
+                                        color: Colors.blueGrey),
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return Row(
+                                children: [
+                                  Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                    size: 16,
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    "Added to Favourites",
+                                    style: asset.introStyles(16,
+                                        color: Colors.blueGrey),
+                                  ),
+                                ],
+                              );
+                            }
+                          },
+                        )),
+                  ],
+                ),
+              ),
+          ],
         ),
       ),
     );

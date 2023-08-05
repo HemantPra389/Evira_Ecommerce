@@ -5,7 +5,6 @@ import 'cart/cart_screen.dart';
 import 'home/home_screen.dart';
 import 'order/order_screen.dart';
 import 'profile/profile_screen.dart';
-import 'wallet/wallet_screen.dart';
 
 class MainHomeScreen extends StatefulWidget {
   static const routename = '/mainhomescreen';
@@ -19,7 +18,6 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
     HomeScreen(),
     CartScreen(),
     OrderScreen(),
-    WalletScreen(),
     ProfileScreen()
   ];
 
@@ -32,8 +30,10 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: asset.introStyles(12),
-        selectedItemColor: Colors.black,
+        selectedItemColor: asset.buttoncolour,
         currentIndex: currentIndex,
+        backgroundColor: Colors.white,
+        elevation: 4,
         onTap: (value) {
           setState(() {
             currentIndex = value;
@@ -63,15 +63,8 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
               label: "Orders"),
           BottomNavigationBarItem(
               icon: Image.asset(
-                asset.wallet,
-                color: currentIndex == 3 ? Colors.black87 : Colors.black54,
-                width: 25,
-              ),
-              label: "Wallet"),
-          BottomNavigationBarItem(
-              icon: Image.asset(
                 asset.profile,
-                color: currentIndex == 4 ? Colors.black87 : Colors.black54,
+                color: currentIndex == 3 ? Colors.black87 : Colors.black54,
                 width: 25,
               ),
               label: "Profile"),

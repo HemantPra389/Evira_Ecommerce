@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../../product/domain/entities/address_entity.dart';
+import '../../../../product/domain/entities/profile_entity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../domain/entities/user_credentail_entity.dart';
+import 'package:hive/hive.dart';
+import '../../../../../core/asset_constants.dart' as asset;
+import '../../../domain/entities/user_credentail_entity.dart';
 import 'auth_network_db.dart';
 
 class AuthNetworkDBImpl implements AuthNetworkDB {
@@ -27,24 +30,50 @@ class AuthNetworkDBImpl implements AuthNetworkDB {
   }
 
   @override
-  Future<String> createUserProfile(Map<String, String> usercredentials,
+  Future<String> createUserProfile(Map<String, String> userCredentials,
       BuildContext context, File image) async {
     try {
       final ref = FirebaseStorage.instance
           .ref()
           .child('user-images')
           .child(_firebaseAuth.currentUser!.uid + '.jpeg');
-      ref.putFile(image).whenComplete(() => null);
-      await FirebaseFirestore.instance
+
+      final uploadTask = ref.putFile(image);
+      final storageSnapshot = await uploadTask.whenComplete(() => null);
+
+      // Get the download URL of the uploaded image
+      final imageUrl = await storageSnapshot.ref.getDownloadURL();
+
+      var data = await FirebaseFirestore.instance
           .collection('users')
           .doc(_firebaseAuth.currentUser!.uid)
           .set({
-        'fullname': usercredentials['fullname'],
-        'nickname': usercredentials['nickname'],
-        'DOB': usercredentials['date'],
-        'email': usercredentials['email'],
-        'gender': usercredentials['gender']
-      }).then((value) => print('Success'));
+        'fullname': userCredentials['fullname'],
+        'nickname': userCredentials['nickname'],
+        'DOB': userCredentials['date'],
+        'email': userCredentials['email'],
+        'gender': userCredentials['gender'],
+        'profileImageUrl': imageUrl,
+        'address': "",
+        "landmark": "",
+      });
+      Hive.box<ProfileEntity>(asset.hiveprofilebox)
+          .put(
+              _firebaseAuth.currentUser!.uid,
+              ProfileEntity(
+                  id: _firebaseAuth.currentUser!.uid,
+                  fullname: userCredentials['fullname']!,
+                  nickname: userCredentials['nickname']!,
+                  email: userCredentials['email']!,
+                  dob: userCredentials['date']!,
+                  gender: userCredentials['gender']!,
+                  imageUrl: imageUrl))
+          .then((value) => print("Success"));
+      Hive.box<AddressEntity>(asset.hiveaddressbox).put(
+          _firebaseAuth.currentUser!.uid,
+          AddressEntity(
+              id: _firebaseAuth.currentUser!.uid, address: "", landmark: ""));
+
       return "Success";
     } on FirebaseException catch (error) {
       return error.message.toString();

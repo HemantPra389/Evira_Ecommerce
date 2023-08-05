@@ -24,8 +24,12 @@ const cart = "assets/icons/general/bottom_nav/cart.png";
 const orders = "assets/icons/general/bottom_nav/orders.png";
 const wallet = "assets/icons/general/bottom_nav/wallet.png";
 const profile = "assets/icons/general/bottom_nav/profile.png";
+const hivefavbox = "hivefavbox";
+const hiveprofilebox = "hiveprofilebox";
+const hiveaddressbox = "hiveaddressbox";
+const buttoncolour = Color.fromRGBO(29, 41, 57, 1);
 
-String numberFormat(int price) {
+String numberFormat(double price) {
   final numberFormatter = NumberFormat(
     "##,##,###",
     "en_US", // local US
@@ -38,8 +42,18 @@ String timeConversion(DateTime dateTime) {
   return DateFormat('yyyy-MM-dd – kk:mm').format(dateTime);
 }
 
-TextStyle introStyles(double size, {Color color = Colors.black87}) {
-  return TextStyle(fontFamily: 'Ubuntu', color: color, fontSize: size);
+TextStyle introStyles(double size,
+    {Color color = Colors.black87, FontWeight fontWeight = FontWeight.normal}) {
+  return TextStyle(
+      fontFamily: 'Ubuntu',
+      color: color,
+      fontSize: size,
+      fontWeight: fontWeight);
+}
+
+String capitalizeFirstLetter(String word) {
+  if (word == null || word.isEmpty) return '';
+  return word[0].toUpperCase() + word.substring(1).toLowerCase();
 }
 
 Container category_chip(String title, String activeChiptitle) {
@@ -64,7 +78,7 @@ Container category_chip(String title, String activeChiptitle) {
           title,
           style: introStyles(16, color: Colors.white),
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: buttoncolour,
         side: const BorderSide(
           width: 1.5,
         ),

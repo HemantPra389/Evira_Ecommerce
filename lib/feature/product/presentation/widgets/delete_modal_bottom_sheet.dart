@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:evira_ecommerce/core/asset_constants.dart' as asset;
+import '../../../../core/asset_constants.dart' as asset;
 
 class DeleteModalBottomSheet extends StatelessWidget {
   String img_url;
@@ -14,7 +14,7 @@ class DeleteModalBottomSheet extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 20),
       padding: const EdgeInsets.only(right: 20),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.shade300,
@@ -50,39 +50,12 @@ class DeleteModalBottomSheet extends StatelessWidget {
                   ),
                 ),
                 Row(
-                  children: [
-                    const Icon(Icons.circle),
-                    Text(
-                      '   Color',
-                      style: asset.introStyles(14, color: Colors.black54),
-                    )
-                  ],
-                ),
-                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "₹" + price,
                       style: asset.introStyles(20),
-                    ),
-                    Container(
-                        width: 90,
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                        decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Icon(Icons.remove),
-                            Text(
-                              "1",
-                              style: asset.introStyles(16),
-                            ),
-                            const Icon(Icons.add)
-                          ],
-                        ))
+                    )
                   ],
                 )
               ],

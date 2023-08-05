@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/src/widgets/framework.dart';
 
-import '../../../domain/entities/user_credentail_entity.dart';
-import '../../../domain/repository/auth_repository.dart';
+import '../../domain/entities/user_credentail_entity.dart';
+import '../../domain/repository/auth_repository.dart';
 import '../datasource/networkdb/auth_network_db.dart';
 
 class AuthRepositoryImpl implements AuthRepository {

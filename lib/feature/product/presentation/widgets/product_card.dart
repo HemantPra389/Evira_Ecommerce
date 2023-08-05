@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:evira_ecommerce/core/asset_constants.dart' as asset;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
 
+import '../../../../core/asset_constants.dart' as asset;
+import '../../domain/entities/cart_product_entity.dart';
 import '../bloc/cubit/product_cubit.dart';
 import '../screens/home/home/product_detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
-  List<dynamic> image_url;
+  String image_url;
   String title;
   String price;
+  String id;
+  String rating;
+  String sold;
   String category;
   ProductCard(
-      {required this.title, required this.price, required this.image_url,required this.category});
+      {required this.title,
+      required this.price,
+      required this.id,
+      required this.rating,
+      required this.sold,
+      required this.image_url,
+      required this.category});
   @override
   Widget build(BuildContext context) {
+    Size mediaQuery = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -21,49 +33,76 @@ class ProductCard extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => BlocProvider(
                       create: (context) => ProductCubit(),
-                      child: ProductDetailScreen(
-                          image_url, title, price, category),
+                      child: ProductDetailScreen(id: id),
                     )));
       },
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * .45,
+      child: Container(
+        decoration: BoxDecoration(color: Colors.white, boxShadow: [
+          BoxShadow(
+              color: Colors.blueGrey.shade100, blurRadius: 2, spreadRadius: 1),
+        ]),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
                 height: 200,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.shade300,
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                      )
-                    ],
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
                     Container(
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                        image: NetworkImage(image_url[0].toString()),
+                        image: NetworkImage(image_url.toString()),
                       )),
                     ),
                     Positioned(
-                        top: 10,
-                        right: 10,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.black54,
-                          radius: 15,
-                          child: Image.asset(
-                            asset.heart,
-                            color: Colors.white,
-                            width: 22,
-                          ),
-                        ))
+                      top: 10,
+                      right: 10,
+                      child: GestureDetector(
+                          onTap: () {
+                            if (Hive.box<CartProductEntity>(asset.hivefavbox)
+                                .containsKey(id)) {
+                              Hive.box<CartProductEntity>(asset.hivefavbox)
+                                  .delete(id);
+                            } else {
+                              Hive.box<CartProductEntity>(asset.hivefavbox).put(
+                                  id,
+                                  CartProductEntity(
+                                      id: id,
+                                      title: title,
+                                      price: double.parse(price),
+                                      imageUrl: image_url,
+                                      rating: rating,
+                                      sold: sold));
+                            }
+                          },
+                          child: ValueListenableBuilder(
+                            valueListenable:
+                                Hive.box<CartProductEntity>(asset.hivefavbox)
+                                    .listenable(),
+                            builder: (context, favbox, _) {
+                              if (!favbox.containsKey(id)) {
+                                return CircleAvatar(
+                                  backgroundColor: Colors.black54,
+                                  radius: 15,
+                                  child: Image.asset(
+                                    asset.heart,
+                                    color: Colors.white,
+                                    width: 22,
+                                  ),
+                                );
+                              } else {
+                                return CircleAvatar(
+                                    backgroundColor: Colors.pinkAccent,
+                                    radius: 15,
+                                    child: Icon(
+                                      Icons.favorite,
+                                      color: Colors.white,
+                                    ));
+                              }
+                            },
+                          )),
+                    ),
                   ],
                 )),
             Padding(
@@ -73,34 +112,44 @@ class ProductCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: asset.introStyles(20, color: Colors.black),
+                    style: asset.introStyles(16, color: Colors.black),
+                  ),
+                  SizedBox(
+                    height: mediaQuery.height * .01,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Icon(Icons.star_half_outlined),
+                      const Icon(
+                        Icons.star,
+                        size: 16,
+                        color: Colors.yellow,
+                      ),
                       Text(
-                        ' 4.5  |   ',
-                        style: asset.introStyles(16, color: Colors.grey),
+                        ' $rating  |   ',
+                        style: asset.introStyles(14, color: Colors.grey),
                       ),
                       Container(
-                        width: 60,
+                        width: 80,
                         height: 20,
                         padding: const EdgeInsets.symmetric(horizontal: 4),
-                        alignment: Alignment.center,
+                        alignment: Alignment.centerLeft,
                         color: Colors.grey.shade300,
                         child: Text(
-                          '8,374 sold',
+                          '$sold sold',
                           style: asset.introStyles(12),
                         ),
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: mediaQuery.height * .01,
+                  ),
                   Text(
                     '₹$price',
-                    style: asset.introStyles(20),
+                    style: asset.introStyles(18, fontWeight: FontWeight.bold),
                   )
                 ],
               ),

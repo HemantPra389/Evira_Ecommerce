@@ -1,4 +1,4 @@
-import 'package:evira_ecommerce/core/asset_constants.dart' as asset;
+import '../../../../core/asset_constants.dart' as asset;
 import 'package:flutter/material.dart';
 
 class CarouselCard extends StatelessWidget {
@@ -12,7 +12,7 @@ class CarouselCard extends StatelessWidget {
       height: 200,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
           image: DecorationImage(
               image: NetworkImage(
                 url,
@@ -44,6 +44,5 @@ class CarouselCard extends StatelessWidget {
         ],
       ),
     );
-    
   }
 }

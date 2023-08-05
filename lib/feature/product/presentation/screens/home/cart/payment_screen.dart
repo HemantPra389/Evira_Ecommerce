@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:evira_ecommerce/core/asset_constants.dart' as asset;
+import '../../../../../../core/asset_constants.dart' as asset;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../auth/presentation/widgets/back_app_bar.dart';
@@ -13,7 +13,7 @@ class PaymentScreen extends StatelessWidget {
     return Scaffold(
       appBar: BackAppBar(context, 'Payments Methods'),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
         child: SizedBox(
           child: ListView(children: [
             Text(
@@ -94,14 +94,10 @@ class PaymentScreen extends StatelessWidget {
                 style: asset.introStyles(20),
               ),
             isSelected
-                ? const Icon(
-                    Icons.radio_button_checked_rounded,
-                    color: Colors.black,
-                  )
-                : const Icon(
-                    Icons.radio_button_off_rounded,
-                    color: Colors.black,
-                  )
+                ? const Icon(Icons.radio_button_checked_rounded,
+                    color: asset.buttoncolour)
+                : const Icon(Icons.radio_button_off_rounded,
+                    color: asset.buttoncolour)
           ],
         ),
       ),

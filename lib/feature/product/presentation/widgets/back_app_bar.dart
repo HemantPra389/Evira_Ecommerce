@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import '../../../../core/asset_constants.dart' as asset;
 
 PreferredSize BackAppBar(
-  BuildContext context,String title,
+  BuildContext context,
+  String title,
 ) {
   return PreferredSize(
       child: SafeArea(
         child: Container(
           child: AppBar(
-            elevation: 0,
+            elevation: 2,
             primary: false,
             automaticallyImplyLeading: false,
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white,
             titleSpacing: 10,
             title: Row(
               children: [
@@ -18,17 +20,22 @@ PreferredSize BackAppBar(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon:
-                        const Icon(Icons.arrow_back_ios, color: Colors.black)),
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: asset.buttoncolour,
+                      size: 16,
+                    )),
                 Text(
                   title,
                   style: const TextStyle(
-                      color: Colors.black, fontFamily: 'Ubuntu', fontSize: 23),
+                      color: asset.buttoncolour,
+                      fontFamily: 'Ubuntu',
+                      fontSize: 20),
                 )
               ],
             ),
           ),
         ),
       ),
-      preferredSize: const Size.fromHeight(60));
+      preferredSize: const Size.fromHeight(55));
 }

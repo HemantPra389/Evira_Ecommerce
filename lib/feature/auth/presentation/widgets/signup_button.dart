@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/entities/user_credentail_entity.dart';
+import '../../domain/entities/user_credentail_entity.dart';
 import '../bloc/auth_cubit.dart';
 
 class SignUpButton extends StatelessWidget {

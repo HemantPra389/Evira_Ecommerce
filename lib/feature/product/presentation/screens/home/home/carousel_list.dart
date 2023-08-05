@@ -10,13 +10,13 @@ class CarouselList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BackAppBar(context,"Special Offers"),
+      appBar: BackAppBar(context, "Special Offers"),
       body: FutureBuilder(
         future: BlocProvider.of<ProductCubit>(context).getCarouselData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-                child:  CircularProgressIndicator(
+                child: CircularProgressIndicator(
               color: Colors.black87,
               strokeWidth: 7,
             ));
@@ -34,7 +34,7 @@ class CarouselList extends StatelessWidget {
                         offset: const Offset(1, 1.1))
                   ],
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: CarouselCard(
                     snapshot.data[index].discount,

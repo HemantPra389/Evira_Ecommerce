@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:evira_ecommerce/core/asset_constants.dart' as asset;
+import '../../../../core/asset_constants.dart' as asset;
 
 PreferredSize DefaultAppBar(
   String title,
 ) {
   return PreferredSize(
+      preferredSize: const Size.fromHeight(55),
       child: SafeArea(
         child: AppBar(
-          elevation: 0,
+          elevation: 1,
           primary: false,
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           titleSpacing: 10,
           title: Row(
             children: [
@@ -21,20 +22,12 @@ PreferredSize DefaultAppBar(
               Text(
                 title,
                 style: const TextStyle(
-                    color: Colors.black, fontFamily: 'Ubuntu', fontSize: 23),
+                    color: asset.buttoncolour,
+                    fontFamily: 'Ubuntu',
+                    fontSize: 20),
               )
             ],
           ),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.black54,
-                  size: 30,
-                ))
-          ],
         ),
-      ),
-      preferredSize: const Size.fromHeight(60));
+      ));
 }

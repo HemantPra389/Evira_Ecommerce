@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:evira_ecommerce/core/asset_constants.dart' as asset;
+import '../../../../core/asset_constants.dart' as asset;
 
 class TransactionButton extends StatelessWidget {
   final double mediaQuery;
@@ -13,9 +13,9 @@ class TransactionButton extends StatelessWidget {
   TransactionButton(
       {required this.mediaQuery,
       required this.title,
-      this.titleSize = 22,
+      this.titleSize = 16,
       this.middlepadding = 20,
-      this.verticalpadding = 10,
+      this.verticalpadding = 18,
       required this.suffixIcon,
       required this.trasaction_fun});
 
@@ -25,12 +25,14 @@ class TransactionButton extends StatelessWidget {
       onTap: trasaction_fun,
       child: Container(
         width: mediaQuery,
-        padding: EdgeInsets.symmetric(vertical: verticalpadding),
+        padding: EdgeInsets.symmetric(
+          vertical: verticalpadding,
+        ),
         decoration: BoxDecoration(
-            color: Colors.black87,
-            borderRadius: BorderRadius.circular(30),
-            boxShadow: [
-              const BoxShadow(
+            color: asset.buttoncolour,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: const [
+              BoxShadow(
                   color: Colors.grey,
                   spreadRadius: 1,
                   blurRadius: 1,

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 
-import '../../../../domain/entities/user_credentail_entity.dart';
+import '../../../domain/entities/user_credentail_entity.dart';
 
 abstract class AuthNetworkDB {
   Future<String> createUser(

@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../product/presentation/screens/home/main_home_screen.dart';
+import '../../../../product/presentation/widgets/back_app_bar.dart';
+import '../../../../product/presentation/widgets/transaction_button.dart';
 import '../../bloc/auth_cubit.dart';
-import '../../widgets/back_app_bar.dart';
-
 
 class CreateProfileScreen extends StatefulWidget {
   static const routename = '/createprofiescreen';
@@ -31,6 +31,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   };
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
       appBar: BackAppBar(context, 'Fill Your Profile'),
       body: BlocConsumer<AuthCubit, AuthState>(
@@ -70,17 +71,21 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             _pickedImage();
                           },
                           child: CircleAvatar(
-                            radius: 60,
-                            child: !isImageLoaded
-                                ? Icon(
-                                    Icons.camera_alt_outlined,
-                                    size: 40,
-                                    color: Colors.grey.shade700,
-                                  )
-                                : null,
-                            backgroundColor: Colors.white,
-                            backgroundImage:
-                                isImageLoaded ? FileImage(image!) : null,
+                            radius: 66,
+                            backgroundColor: Colors.black,
+                            child: CircleAvatar(
+                              radius: 60,
+                              child: !isImageLoaded
+                                  ? Icon(
+                                      Icons.camera_alt_outlined,
+                                      size: 40,
+                                      color: Colors.grey.shade700,
+                                    )
+                                  : null,
+                              backgroundColor: Colors.white,
+                              backgroundImage:
+                                  isImageLoaded ? FileImage(image!) : null,
+                            ),
                           ),
                         ),
                         Positioned(
@@ -90,7 +95,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               height: 30,
                               width: 30,
                               decoration: BoxDecoration(
-                                  color: Colors.black,
+                                  color: asset.buttoncolour,
                                   borderRadius: BorderRadius.circular(10)),
                               child: const Icon(
                                 Icons.edit,
@@ -112,20 +117,20 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             onChanged: (value) {
                               userProfileCredentials['fullname'] = value;
                             },
-                            validator: (value) {},
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 hintText: 'Full Name',
                                 hintStyle: asset.introStyles(18,
                                     color: Colors.black26),
                                 focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(12),
                                     borderSide: const BorderSide(
-                                        color: Colors.black, width: 1.5)),
+                                        color: asset.buttoncolour, width: 2)),
                                 filled: true,
                                 border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(20))),
+                                    borderSide: const BorderSide(
+                                        color: asset.buttoncolour, width: 2),
+                                    borderRadius: BorderRadius.circular(12))),
                           ),
                           TextFormField(
                             style: asset.introStyles(20),
@@ -139,17 +144,18 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                 hintStyle: asset.introStyles(18,
                                     color: Colors.black26),
                                 focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(12),
                                     borderSide: const BorderSide(
-                                        color: Colors.black, width: 1.5)),
+                                        color: asset.buttoncolour, width: 2)),
                                 filled: true,
                                 border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(20))),
+                                    borderSide: const BorderSide(
+                                        color: asset.buttoncolour, width: 2),
+                                    borderRadius: BorderRadius.circular(12))),
                           ),
                           InkWell(
                             onTap: () async {
-                              DateTime? newDate = await showDatePicker(
+                              await showDatePicker(
                                       context: context,
                                       initialDate: dateTime,
                                       builder: (context, child) {
@@ -188,6 +194,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               padding: const EdgeInsets.only(
                                   top: 20, right: 15, bottom: 20, left: 10),
                               decoration: BoxDecoration(
+                                  border: Border.all(),
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white),
                               child: Row(
@@ -225,16 +232,18 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                   hintStyle: asset.introStyles(18,
                                       color: Colors.black26),
                                   focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(12),
                                       borderSide: const BorderSide(
-                                          color: Colors.black, width: 1.5)),
+                                          color: asset.buttoncolour, width: 2)),
                                   filled: true,
                                   border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
+                                      borderSide: const BorderSide(
+                                          color: asset.buttoncolour, width: 2),
                                       borderRadius:
-                                          BorderRadius.circular(20)))),
+                                          BorderRadius.circular(12)))),
                           Container(
                             decoration: BoxDecoration(
+                                border: Border.all(),
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white),
                             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -275,28 +284,30 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
           }
         },
       ),
-      bottomNavigationBar: InkWell(
-        onTap: () {
-          if (image != null) {
-            BlocProvider.of<AuthCubit>(context)
-                .createProfile(userProfileCredentials, context, image);
-          }
-        },
+      bottomNavigationBar: SizedBox(
+        height: mediaQuery.height * .1,
         child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(
-            vertical: 20,
-          ),
-          margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
-          decoration: BoxDecoration(
-              color: Colors.black87, borderRadius: BorderRadius.circular(35)),
-          child: const Text(
-            'Continue',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.white, fontFamily: 'Ubuntu', fontSize: 24),
-          ),
-        ),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+              BoxShadow(
+                  color: Colors.blueGrey.shade100,
+                  offset: Offset(-1, 0),
+                  spreadRadius: 1,
+                  blurRadius: 1)
+            ]),
+            child: TransactionButton(
+              mediaQuery: mediaQuery.width * .9,
+              title: 'Continue',
+              suffixIcon: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Colors.white,
+                size: 18,
+              ),
+              trasaction_fun: () {
+                BlocProvider.of<AuthCubit>(context)
+                    .createProfile(userProfileCredentials, context, image);
+              },
+            )),
       ),
     );
   }

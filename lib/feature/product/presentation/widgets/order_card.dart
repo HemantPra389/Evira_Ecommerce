@@ -1,6 +1,7 @@
-import 'package:evira_ecommerce/feature/product/presentation/widgets/transaction_button.dart';
 import 'package:flutter/material.dart';
-import 'package:evira_ecommerce/core/asset_constants.dart' as asset;
+
+import '../../../../core/asset_constants.dart' as asset;
+import 'transaction_button.dart';
 
 class OrderCard extends StatelessWidget {
   String status;
@@ -20,7 +21,7 @@ class OrderCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 20),
       padding: const EdgeInsets.only(right: 10, bottom: 7, top: 7),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.shade300,
@@ -119,6 +120,5 @@ class OrderCard extends StatelessWidget {
         ],
       ),
     );
-    
   }
 }

@@ -5,13 +5,13 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../injection_container.dart';
-import '../../../domain/entities/user_credentail_entity.dart';
-import '../../../domain/usecases/auth_sendOTP_usecase.dart';
-import '../../../domain/usecases/auth_verifyOTP_usecase.dart';
-import '../../../domain/usecases/createUser_profile_usercase.dart';
-import '../../../domain/usecases/create_user_usecase.dart';
-import '../../../domain/usecases/forgot_password_usecase.dart';
-import '../../../domain/usecases/login_user_usecase.dart';
+import '../../domain/entities/user_credentail_entity.dart';
+import '../../domain/usecases/auth_sendOTP_usecase.dart';
+import '../../domain/usecases/auth_verifyOTP_usecase.dart';
+import '../../domain/usecases/createUser_profile_usercase.dart';
+import '../../domain/usecases/create_user_usecase.dart';
+import '../../domain/usecases/forgot_password_usecase.dart';
+import '../../domain/usecases/login_user_usecase.dart';
 
 part 'auth_state.dart';
 

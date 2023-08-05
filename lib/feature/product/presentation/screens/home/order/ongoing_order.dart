@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:evira_ecommerce/core/asset_constants.dart' as asset;
 
-import '../../../widgets/order_card.dart';
+import '../../../../../../core/asset_constants.dart' as asset;
+import '../../../widgets/cart_product_card.dart';
 
 class OnGoingOrder extends StatelessWidget {
   var firebasefirestore = FirebaseFirestore.instance
@@ -12,7 +12,10 @@ class OnGoingOrder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: firebasefirestore.collection('orders').snapshots(),
+      stream: firebasefirestore
+          .collection('orders')
+          .where('status', isEqualTo: "ongoing")
+          .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -27,12 +30,15 @@ class OnGoingOrder extends StatelessWidget {
             children: snapshot.data!.docs.map((document) {
               return Padding(
                   padding: const EdgeInsets.only(bottom: 10),
-                  child: OrderCard(
-                    status: "In Delivery",
-                    title: document['title'],
-                    price: document['price'],
-                    image_url: document['product_img_url'],
-                  ));
+                  child: CartProductCard(
+                      isShowfav: false,
+                      id: document['id'],
+                      rating: document['rating'],
+                      quantity: document['quantity'],
+                      sold: document['sold'],
+                      imageUrl: document['imageUrl'],
+                      title: document['title'],
+                      price: document['price']));
             }).toList(),
           );
         } else {

@@ -30,7 +30,7 @@ environment:
 dependencies:
   animate_do: ^3.0.2
   bloc: ^8.1.2
-  build_runner: ^2.4.4
+  build_runner: ^2.4.6
   carousel_slider: ^4.2.1
   cloud_firestore: ^4.7.1
   cupertino_icons: ^1.0.2
@@ -38,31 +38,33 @@ dependencies:
   firebase_auth: ^4.6.1
   firebase_core: ^2.13.0
   firebase_storage: ^11.2.1
+  firestore_search: ^0.2.0
   flutter:
     sdk: flutter
+  flutter_animate: ^4.2.0+1
   flutter_bloc: ^8.1.3
   flutter_getit: ^1.2.1
+  flutter_rating_bar: ^4.0.1
+  flutter_staggered_animations: ^1.1.1
+  flutter_svg: ^2.0.7
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  hive_generator: ^2.0.0
   image_picker: ^0.8.7+5
   intl: ^0.18.1
   introduction_screen: ^3.1.8
   json_annotation: ^4.8.1
   json_serializable: ^6.7.0
-
+  path_provider: ^2.0.15
+  upi_india: ^3.0.1
 
 dev_dependencies:
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^2.0.0
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter packages.
 flutter:
 
@@ -79,13 +81,10 @@ flutter:
     - assets/icons/general/social/
     - assets/json/
     - assets/icons/general/bottom_nav/
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
